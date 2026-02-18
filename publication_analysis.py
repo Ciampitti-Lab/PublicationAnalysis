@@ -8,13 +8,13 @@ from plotnine import *
 from plotnine.data import *
 
 sys.path.append("/usr/local/repositories/")
-from ds_utils.plotting import *
-from ds_utils.gsheets import *
+# from ds_utils.plotting import *
+# from ds_utils.gsheets import *
 
 # --------------------------------------------------------------
 # Get connector
 # gsheet_obj = None
-gsheet_obj = get_gsheets_connector()
+# gsheet_obj = get_gsheets_connector()
 sheet_id = "1_GBfO9hcQofCT7OtcuREgiMgQ-2v0YjDA9CekdYD_lw"
 
 # Find Authors of Interest ------------------------------------------------------------------
@@ -61,43 +61,43 @@ author_ids = {
 
 """
 Alerts for germanmandrini@gmail.com
-Alejandro Plastina - new articles	All results	
-Kenneth Cassman - new articles	All results	
-Kaiyu Guan - new articles	All results	
-New citations to my articles	All results	
-Michael J. Castellano - new articles	All results	
-Andrew John Margenot - new articles	All results	
-John M. Antle - new articles	All results	
-Taro Mieno - new articles	All results	
-PJ Thorburn - new articles	All results	
-John Shanahan - new articles	All results	
-David Lobell - new articles	All results	
-Dr. Emily K. Burchfield - new articles	All results	
-Nicole Olynk Widmar - new articles	All results	
-Gary Schnitkey - new articles	All results	
-Juan Ignacio Rattalino Edreira - new articles	All results	
-Ben Gramig - new articles	All results	
-Fernando E. Miguez - new articles	All results	
-Xin Zhang - new articles	All results	
-Bert Federico Esteban - new articles	All results	
-Dr Jonathan Jesus Ojeda - new articles	All results	
-Sotirios V. Archontoulis - new articles	All results	
-Nicolas Martin - new articles	All results	
-Sotirios V. Archontoulis - new related research	All results	
-Alert for a profile that is no longer public. Alert is inactive.	All results	
-Nigel Key - new articles	All results	
-Zhou Zhang - new articles	All results	
-Shalamar Armstrong - new articles	All results	
-Bruno Basso - new articles	All results	
-Recommended articles	All results	
-David Kanter - new articles	All results	
-M Francesca Cotrufo - new articles	All results	
-Cameron M. Pittelkow - new articles	All results	
-German Bollero - new articles	All results	
-Laila A. Puntel - new articles	All results	
-Christoph Müller - new articles	All results	
-Patricio Grassini - new articles	All results	
-Rafael A Martinez-Feria - new articles	All results	
+Alejandro Plastina - new articles	All results
+Kenneth Cassman - new articles	All results
+Kaiyu Guan - new articles	All results
+New citations to my articles	All results
+Michael J. Castellano - new articles	All results
+Andrew John Margenot - new articles	All results
+John M. Antle - new articles	All results
+Taro Mieno - new articles	All results
+PJ Thorburn - new articles	All results
+John Shanahan - new articles	All results
+David Lobell - new articles	All results
+Dr. Emily K. Burchfield - new articles	All results
+Nicole Olynk Widmar - new articles	All results
+Gary Schnitkey - new articles	All results
+Juan Ignacio Rattalino Edreira - new articles	All results
+Ben Gramig - new articles	All results
+Fernando E. Miguez - new articles	All results
+Xin Zhang - new articles	All results
+Bert Federico Esteban - new articles	All results
+Dr Jonathan Jesus Ojeda - new articles	All results
+Sotirios V. Archontoulis - new articles	All results
+Nicolas Martin - new articles	All results
+Sotirios V. Archontoulis - new related research	All results
+Alert for a profile that is no longer public. Alert is inactive.	All results
+Nigel Key - new articles	All results
+Zhou Zhang - new articles	All results
+Shalamar Armstrong - new articles	All results
+Bruno Basso - new articles	All results
+Recommended articles	All results
+David Kanter - new articles	All results
+M Francesca Cotrufo - new articles	All results
+Cameron M. Pittelkow - new articles	All results
+German Bollero - new articles	All results
+Laila A. Puntel - new articles	All results
+Christoph Müller - new articles	All results
+Patricio Grassini - new articles	All results
+Rafael A Martinez-Feria - new articles	All results
 
 """
 
@@ -106,7 +106,7 @@ def get_works(author_ids):
     all_works = []
 
     for aid, name in author_ids.items():
-        print(f"Fetching works for author: {name}")
+        # print(f"Fetching works for author: {name}")
         cursor = "*"
 
         while cursor:
@@ -252,7 +252,15 @@ def get_publications_table(all_works):
 
 
 works_df = get_publications_table(all_works)
+print(works_df["journal_display_name"].head(50))
+# top_10_per_author = (
+#     works_df.sort_values("total_citations", ascending=False)
+#     .groupby("queried_author", group_keys=False)
+#     .head(10)
+# )
 
+# # Display with key columns only
+# print(top_10_per_author[['queried_author', 'journal_display_name']])
 # Compare Authors  ------------------------------------------------------------------
 
 
@@ -294,29 +302,29 @@ def plot_pub_and_citations_per_year_per_author():
         }
     )
 
-    timeline_plot = (
-        ggplot(
-            summary_long, aes(x="publication_year", y="count", color="queried_author")
-        )
-        + geom_line(size=1.2)
-        + geom_point(size=2)
-        + facet_wrap("~metric", scales="free_y", ncol=2)
-        + labs(
-            title="Author Timeline: Publications and Citations (2020–2025)",
-            x="Publication Year",
-            y="Count",
-            color="Author",
-        )
-        # + theme_minimal()
-        + theme_ff()
-        + theme(
-            figure_size=(12, 8),
-            subplots_adjust={"hspace": 0.4},
-            axis_text_x=element_text(rotation=45, ha="right"),
-        )
-    )
+    # timeline_plot = (
+    #     ggplot(
+    #         summary_long, aes(x="publication_year", y="count", color="queried_author")
+    #     )
+    #     + geom_line(size=1.2)
+    #     + geom_point(size=2)
+    #     + facet_wrap("~metric", scales="free_y", ncol=2)
+    #     + labs(
+    #         title="Author Timeline: Publications and Citations (2020–2025)",
+    #         x="Publication Year",
+    #         y="Count",
+    #         color="Author",
+    #     )
+    #     # + theme_minimal()
+    #     + theme_ff()
+    #     + theme(
+    #         figure_size=(12, 8),
+    #         subplots_adjust={"hspace": 0.4},
+    #         axis_text_x=element_text(rotation=45, ha="right"),
+    #     )
+    # )
 
-    timeline_plot
+    # timeline_plot
 
 
 def summarize_by_journal(works_df):
@@ -403,16 +411,16 @@ def summarize_by_journal_avg_citations(works_df, max_year_offset=5):
     range_id = "journal!A35"  # Tab
     clear_range_id = f"{range_id}:J100"
 
-    response = pd_to_gsheets(
-        summary_df,
-        gsheet_obj,
-        sheet_id,
-        range_id,
-        clear_sheet=True,
-        clear_range_id=clear_range_id,
-        chunk_size=3000,
-        verbose=True,
-    )
+    # response = pd_to_gsheets(
+    #     summary_df,
+    #     gsheet_obj,
+    #     sheet_id,
+    #     range_id,
+    #     clear_sheet=True,
+    #     clear_range_id=clear_range_id,
+    #     chunk_size=3000,
+    #     verbose=True,
+    # )
 
     return summary_df
 
