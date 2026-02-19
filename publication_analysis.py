@@ -112,7 +112,7 @@ Rafael A Martinez-Feria - new articles	All results
 
 
 def get_works(author_ids):
-    all_works = []
+    primary_works = []
 
     for aid, name in author_ids.items():
         print(f"Fetching works for author: {name}")
@@ -146,7 +146,7 @@ def get_works(author_ids):
                 work["author_position"] = author_position
                 work["is_corresponding_author"] = is_corresponding
 
-                all_works.append(work)
+                primary_works.append(work)
 
             # Pagination
             next_cursor = results.meta.get("next_cursor")
@@ -156,21 +156,21 @@ def get_works(author_ids):
 
             time.sleep(1)
 
-    print(f"Total works retrieved: {len(all_works)}")
+    print(f"Total works retrieved: {len(primary_works)}")
 
-    work = all_works[0]
+    work = primary_works[0]
     work.keys()
-    return all_works
+    return primary_works
 
 
-all_works = get_works(author_ids)
+primary_works = get_works(author_ids)
 
 
 # Select prolific co-authors to add to author_ids
-def get_prolific_coauthors(all_works):
+def get_prolific_coauthors(primary_works):
     coauthor_counter = Counter()
 
-    for work in all_works:
+    for work in primary_works:
         queried_aid = work.get("queried_author_id")
         for auth in work.get("authorships", []):
             author_id = auth.get("author", {}).get("id")
@@ -188,7 +188,8 @@ def get_prolific_coauthors(all_works):
         print(f"{name} ({aid}): {count} co-authored papers")
 
 
-get_prolific_coauthors(all_works)
+get_prolific_coauthors(primary_works)
+coauthors_works = get_works(coauthors_ids)
 print(f"Total number of authors in author_ids: {len(author_ids)}")
 print(f"Total number of authors in coauthors_ids: {len(coauthors_ids)}")
 
@@ -222,11 +223,11 @@ def compute_citations_by_year(cited_by_api, pub_year):
     return citation_counts
 
 
-def get_publications_table(all_works):
+def get_publications_table(primary_works):
     # Create list of processed rows
     rows = []
 
-    for work in all_works:
+    for work in primary_works:
         pub_year = work.get("publication_year")
         # Initialize dictionary for year-offset citation counts
         citation_counts = {}
@@ -340,24 +341,32 @@ SEED_TOPICS = {
 }
 
 
+def create_eta_prior(dictionary, seed_topics, strength=0.5):
+    """Crea un prior eta que favorece seed words"""
+    import numpy as np
+
+    eta = np.ones((len(seed_topics), len(dictionary))) * 0.01
+
+    for topic_idx, (topic_name, seed_words) in enumerate(seed_topics.items()):
+        for word in seed_words:
+            if word in dictionary.token2id:
+                word_id = dictionary.token2id[word]
+                eta[topic_idx, word_id] = strength
+
+    return eta
+
+
 def train_gensim_lda_with_seeds(
-    tokenized_docs, seed_topics, num_topics=15, passes=15, random_state=42
+    tokenized_docs, seed_topics, num_topics=10, passes=10, random_state=42
 ):
     """
     Train LDA model with Gensim using seed topics for semi-supervised topic modeling
     """
-    # Create dictionary and corpus
     dictionary = corpora.Dictionary(tokenized_docs)
-
-    # Filter extremes
     dictionary.filter_extremes(no_below=3, no_above=0.7, keep_n=2000)
 
     # Create corpus
     corpus = [dictionary.doc2bow(doc) for doc in tokenized_docs]
-
-    print(f"Dictionary size: {len(dictionary)}")
-    print(f"Corpus size: {len(corpus)}")
-
     # Train LDA model
     lda_model = LdaModel(
         corpus=corpus,
@@ -366,7 +375,7 @@ def train_gensim_lda_with_seeds(
         random_state=random_state,
         passes=passes,
         alpha="auto",
-        eta="auto",
+        eta=create_eta_prior(dictionary, seed_topics, strength=0.5),
         per_word_topics=True,
     )
 
@@ -385,8 +394,8 @@ def display_gensim_topics(lda_model, num_words=10, seed_topics=None):
         topic_words = [word for word, prob in words]
         topic_probs = [prob for word, prob in words]
 
-        # print(f"\nTopic {topic_id + 1}:")
-        # print(" ".join([f"{word}({prob:.3f})" for word, prob in words]))
+        print(f"\nTopic {topic_id + 1}:")
+        print(" ".join([f"{word}({prob:.3f})" for word, prob in words]))
 
         # Match to seed topics
         if seed_topics:
@@ -445,27 +454,36 @@ def get_document_topics(lda_model, corpus, works_df):
 
 # Main analysis workflow
 print("Building publications dataframe...")
-works_df = get_publications_table(all_works)
+primary_works_df = get_publications_table(primary_works)
+coauthors_works_df = get_publications_table(coauthors_works)
 
-print("\nCleaning and tokenizing paper titles...")
-tokenized_titles = clean_and_process_titles(works_df, "title")
+# Add author type labels
+primary_works_df["author_type"] = "Primary Author"
+coauthors_works_df["author_type"] = "Collaborator (Co-author)"
 
-print("\nTraining Gensim LDA model with seed topics...")
+# Combine all works for unified LDA analysis
+print(
+    f"\nCombining datasets: {len(primary_works_df)} primary + {len(coauthors_works_df)} coauthor papers"
+)
+all_works_df = pd.concat([primary_works_df, coauthors_works_df], ignore_index=True)
+print(f"Total papers for analysis: {len(all_works_df)}")
+
+print("\nCleaning and tokenizing ALL paper titles...")
+tokenized_titles = clean_and_process_titles(all_works_df, "title")
+
+print("\nTraining unified Gensim LDA model with seed topics...")
 lda_model, dictionary, corpus = train_gensim_lda_with_seeds(
-    tokenized_titles, SEED_TOPICS, num_topics=15, passes=15
+    tokenized_titles, SEED_TOPICS, num_topics=10, passes=10
 )
 
 print("\n" + "=" * 80)
-print("DISCOVERED TOPICS IN AGRICULTURAL RESEARCH")
+print("DISCOVERED TOPICS IN AGRICULTURAL RESEARCH (PRIMARY + COAUTHORS)")
 print("=" * 80)
 
-topic_interpretations = display_gensim_topics(
-    lda_model, num_words=10, seed_topics=SEED_TOPICS
-)
+display_gensim_topics(lda_model, num_words=10, seed_topics=SEED_TOPICS)
 
-print("\nAssigning topics to documents...")
-works_with_topics = get_document_topics(lda_model, corpus, works_df)
-
+print("\nAssigning topics to all documents...")
+works_with_topics = get_document_topics(lda_model, corpus, all_works_df)
 # Summary by topic
 print("\n" + "=" * 80)
 print("TOPIC DISTRIBUTION ACROSS PAPERS")
@@ -513,13 +531,22 @@ author_topics_pivot = author_topics.pivot(
 print("\nNumber of papers per topic for each author:")
 print(author_topics_pivot.astype(int))
 
-# Most common topic per author
+# Most common topic per author with type identification
 print("\n" + "=" * 80)
 print("PRIMARY RESEARCH FOCUS PER AUTHOR")
 print("=" * 80)
 
 for author in works_with_topics["queried_author"].unique():
     author_data = works_with_topics[works_with_topics["queried_author"] == author]
+
+    # Determine author type
+    author_type = (
+        author_data["author_type"].mode().values[0]
+        if len(author_data) > 0
+        else "Unknown"
+    )
+    type_label = "🔹" if author_type == "Primary Author" else "🔸"
+
     if author_data["dominant_topic"].notna().any():
         top_topic = (
             author_data["dominant_topic"].mode().values[0]
@@ -530,25 +557,67 @@ for author in works_with_topics["queried_author"].unique():
             topic_words = lda_model.show_topics(
                 num_topics=-1, num_words=5, formatted=False
             )[int(top_topic)][1]
-            print(f"\n{author}: Topic {int(top_topic)+1}")
+            print(f"\n{type_label} {author} ({author_type}): Topic {int(top_topic)+1}")
             print(f"  Keywords: {', '.join([word for word, prob in topic_words])}")
             print(
                 f"  Papers: {len(author_data)}, Avg citations: {author_data['total_citations'].mean():.1f}"
             )
+
+# Comparative analysis: Primary Authors vs Coauthors
+print("\n" + "=" * 80)
+print("COMPARATIVE ANALYSIS: PRIMARY AUTHORS vs COLLABORATORS")
+print("=" * 80)
+
+comparison = (
+    works_with_topics.groupby("author_type")
+    .agg(
+        num_authors=("queried_author", "nunique"),
+        num_papers=("article_id", "count"),
+        avg_citations_per_paper=("total_citations", "mean"),
+        total_citations=("total_citations", "sum"),
+    )
+    .round(2)
+)
+
+# Calculate average papers per author manually
+comparison["avg_papers_per_author"] = (
+    comparison["num_papers"] / comparison["num_authors"]
+).round(2)
+
+print(comparison)
+
+# Topic overlap analysis
+print("\n" + "=" * 80)
+print("TOPIC DISTRIBUTION BY AUTHOR TYPE")
+print("=" * 80)
+
+topic_by_type = (
+    works_with_topics.groupby(["author_type", "dominant_topic"])
+    .size()
+    .unstack(fill_value=0)
+)
+print("\nPapers per topic by author type:")
+print(topic_by_type)
+
+print("\n" + "=" * 80)
+print("Legend: 🔹 = Primary Author | 🔸 = Collaborator (Co-author)")
+print("=" * 80)
 
 # Compare Authors  ------------------------------------------------------------------
 
 
 def plot_pub_and_citations_per_year_per_author():
     summary = (
-        works_df.groupby(["queried_author", "publication_year"])
+        works_with_topics.groupby(["queried_author", "publication_year"])
         .agg(
             total_works=("article_id", "count"),
             corresponding_author_works=("is_corresponding_author", "sum"),
             total_citations=("total_citations", "sum"),
             corresponding_author_citations=(
                 "total_citations",
-                lambda x: x[works_df.loc[x.index, "is_corresponding_author"]].sum(),
+                lambda x: x[
+                    works_with_topics.loc[x.index, "is_corresponding_author"]
+                ].sum(),
             ),
         )
         .reset_index()
@@ -711,7 +780,7 @@ concept_data = defaultdict(
 )
 
 # Loop through works and collect concept stats
-for work in all_works:
+for work in primary_works:
     for concept in work.get("concepts", []):
         if concept["level"] >= 2:
             cid = concept["id"]
@@ -749,7 +818,7 @@ if False:
 
     filtered_papers = [
         work
-        for work in all_works
+        for work in primary_works
         if any(
             concept["id"] == target_concept_id for concept in work.get("concepts", [])
         )
@@ -764,7 +833,7 @@ if False:
     #  ------------------------------------------------------------
     concept_counter = Counter()
 
-    for work in all_works:
+    for work in primary_works:
         for concept in work.get("concepts", []):
             if concept["level"] >= 2:
                 concept_counter[concept["id"]] += 1
@@ -776,7 +845,7 @@ if False:
 
     rows = []
 
-    for work in all_works:
+    for work in primary_works:
         work_id = work.get("id")
         title = work.get("display_name", "")[:100]  # Trim long titles
         concept_levels = {0: 0, 1: 0, 2: 0, 3: 0}
@@ -857,3 +926,41 @@ filtered_works = [
 ]
 
 print(f"Total filtered works: {len(filtered_works)}")
+
+filtered_works_df = get_publications_table(filtered_works)
+tokenized_titles = clean_and_process_titles(filtered_works_df, "title")
+lda_model, dictionary, corpus = train_gensim_lda_with_seeds(
+    tokenized_titles, SEED_TOPICS, num_topics=10, passes=10
+)
+print("\nAssigning topics to all documents...")
+works_with_topics = get_document_topics(lda_model, corpus, filtered_works_df)
+# Summary by topic
+print("\n" + "=" * 80)
+print("TOPIC DISTRIBUTION ACROSS PAPERS")
+print("=" * 80)
+topic_summary = (
+    works_with_topics.groupby("dominant_topic")
+    .agg(
+        num_papers=("article_id", "count"),
+        avg_citations=("total_citations", "mean"),
+        total_citations=("total_citations", "sum"),
+    )
+    .sort_values("num_papers", ascending=False)
+)
+
+print(topic_summary)
+
+# Top cited papers by topic
+print("\n" + "=" * 80)
+print("TOP 3 MOST CITED PAPERS PER TOPIC")
+print("=" * 80)
+
+for topic_id in works_with_topics["dominant_topic"].dropna().unique():
+    topic_papers = works_with_topics[works_with_topics["dominant_topic"] == topic_id]
+    top_papers = topic_papers.nlargest(3, "total_citations")
+
+    print(f"\nTopic {int(topic_id) + 1}:")
+    for idx, row in top_papers.iterrows():
+        print(
+            f"  - {row['title'][:80]}... ({row['total_citations']} citations, {row['publication_year']})"
+        )
