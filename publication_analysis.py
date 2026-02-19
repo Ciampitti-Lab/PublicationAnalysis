@@ -1,13 +1,22 @@
 import sys
+from numpy import nan
 from pyalex import Works, Authors
 import pandas as pd
+import spacy
 from collections import Counter, defaultdict
 import time
 from datetime import datetime
 from plotnine import *
 from plotnine.data import *
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import LatentDirichletAllocation
+import gensim
+from gensim import corpora
+from gensim.models import LdaModel
+import numpy as np
 
-sys.path.append("/usr/local/repositories/")
+nlp = spacy.load("en_core_web_sm")  # English load
+# sys.path.append("/usr/local/repositories/")
 # from ds_utils.plotting import *
 # from ds_utils.gsheets import *
 
@@ -106,7 +115,7 @@ def get_works(author_ids):
     all_works = []
 
     for aid, name in author_ids.items():
-        # print(f"Fetching works for author: {name}")
+        print(f"Fetching works for author: {name}")
         cursor = "*"
 
         while cursor:
@@ -148,7 +157,9 @@ def get_works(author_ids):
             time.sleep(1)
 
     print(f"Total works retrieved: {len(all_works)}")
+
     work = all_works[0]
+    print(work.keys())
     work.keys()
     return all_works
 
@@ -178,6 +189,7 @@ def get_prolific_coauthors(all_works):
         print(f"{name} ({aid}): {count} co-authored papers")
 
 
+get_prolific_coauthors(all_works)
 # Make it into a df ------------------------------------------------------------------
 
 
@@ -229,6 +241,7 @@ def get_publications_table(all_works):
 
         row = {
             "article_id": work.get("id"),
+            "title": work.get("display_name", ""),
             "queried_author": work.get("queried_author"),
             "author_position": work.get("author_position"),
             "is_corresponding_author": work.get("is_corresponding_author", False),
@@ -251,16 +264,276 @@ def get_publications_table(all_works):
     return works_df
 
 
-works_df = get_publications_table(all_works)
-print(works_df["journal_display_name"].head(50))
-# top_10_per_author = (
-#     works_df.sort_values("total_citations", ascending=False)
-#     .groupby("queried_author", group_keys=False)
-#     .head(10)
-# )
+def clean_and_process_titles(df, text_column):
+    with nlp.select_pipes(
+        enable=["tok2vec", "tagger", "lemmatizer", "attribute_ruler"]
+    ):
+        docs = list(nlp.pipe(df[text_column].astype(str).str.lower(), batch_size=100))
 
-# # Display with key columns only
-# print(top_10_per_author[['queried_author', 'journal_display_name']])
+    tokenized_docs = []
+    for doc in docs:
+        # Filter: only alpha, not stop word, not punctuation, length > 2
+        tokens = [
+            t.lemma_ for t in doc if t.is_alpha and not t.is_stop and len(t.text) > 2
+        ]
+        tokenized_docs.append(tokens)
+
+    return tokenized_docs
+
+
+# Define seed topics for agricultural/environmental research
+SEED_TOPICS = {
+    "crop_yield": [
+        "yield",
+        "production",
+        "productivity",
+        "biomass",
+        "grain",
+        "harvest",
+    ],
+    "climate": [
+        "climate",
+        "temperature",
+        "precipitation",
+        "weather",
+        "drought",
+        "warming",
+    ],
+    "soil": ["soil", "nutrient", "nitrogen", "fertilizer", "organic", "carbon"],
+    "water": [
+        "water",
+        "irrigation",
+        "rainfall",
+        "moisture",
+        "drought",
+        "evapotranspiration",
+    ],
+    "crop_management": [
+        "management",
+        "practice",
+        "tillage",
+        "rotation",
+        "planting",
+        "density",
+    ],
+    "modeling": [
+        "model",
+        "simulation",
+        "prediction",
+        "forecast",
+        "algorithm",
+        "machine",
+    ],
+    "remote_sensing": ["remote", "sensing", "satellite", "imagery", "spectral", "ndvi"],
+    "sustainability": [
+        "sustainable",
+        "efficiency",
+        "environmental",
+        "impact",
+        "emission",
+        "footprint",
+    ],
+    "genetics": ["genetic", "variety", "cultivar", "breeding", "hybrid", "germplasm"],
+    "economics": ["economic", "farmer", "income", "cost", "profit", "market"],
+}
+
+
+def train_gensim_lda_with_seeds(
+    tokenized_docs, seed_topics, num_topics=15, passes=15, random_state=42
+):
+    """
+    Train LDA model with Gensim using seed topics for semi-supervised topic modeling
+    """
+    # Create dictionary and corpus
+    dictionary = corpora.Dictionary(tokenized_docs)
+
+    # Filter extremes
+    dictionary.filter_extremes(no_below=3, no_above=0.7, keep_n=2000)
+
+    # Create corpus
+    corpus = [dictionary.doc2bow(doc) for doc in tokenized_docs]
+
+    print(f"Dictionary size: {len(dictionary)}")
+    print(f"Corpus size: {len(corpus)}")
+
+    # Train LDA model
+    lda_model = LdaModel(
+        corpus=corpus,
+        id2word=dictionary,
+        num_topics=num_topics,
+        random_state=random_state,
+        passes=passes,
+        alpha="auto",
+        eta="auto",
+        per_word_topics=True,
+    )
+
+    return lda_model, dictionary, corpus
+
+
+def display_gensim_topics(lda_model, num_words=10, seed_topics=None):
+    """
+    Display topics with their top words and match to seed topics
+    """
+    topics = lda_model.show_topics(num_topics=-1, num_words=num_words, formatted=False)
+
+    topic_interpretations = []
+
+    for topic_id, words in topics:
+        topic_words = [word for word, prob in words]
+        topic_probs = [prob for word, prob in words]
+
+        print(f"\nTopic {topic_id + 1}:")
+        print(" ".join([f"{word}({prob:.3f})" for word, prob in words]))
+
+        # Match to seed topics
+        if seed_topics:
+            best_match = None
+            best_score = 0
+
+            for seed_name, seed_words in seed_topics.items():
+                overlap = len(set(topic_words) & set(seed_words))
+                if overlap > best_score:
+                    best_score = overlap
+                    best_match = seed_name
+
+            if best_match and best_score > 0:
+                print(
+                    f"→ Likely relates to: {best_match.replace('_', ' ').title()} (overlap: {best_score})"
+                )
+                topic_interpretations.append(
+                    (topic_id, best_match, best_score, topic_words)
+                )
+
+        print("-" * 80)
+
+    return topic_interpretations
+
+
+def get_document_topics(lda_model, corpus, works_df):
+    """
+    Assign dominant topics to each document
+    """
+    doc_topics = []
+
+    for idx, doc in enumerate(corpus):
+        topics = lda_model.get_document_topics(doc)
+        if topics:
+            # Get dominant topic
+            dominant_topic = max(topics, key=lambda x: x[1])
+            doc_topics.append(
+                {
+                    "doc_idx": idx,
+                    "dominant_topic": dominant_topic[0],
+                    "topic_prob": dominant_topic[1],
+                }
+            )
+        else:
+            doc_topics.append(
+                {"doc_idx": idx, "dominant_topic": None, "topic_prob": 0.0}
+            )
+
+    topic_df = pd.DataFrame(doc_topics)
+    works_with_topics = works_df.copy()
+    works_with_topics["dominant_topic"] = topic_df["dominant_topic"]
+    works_with_topics["topic_probability"] = topic_df["topic_prob"]
+
+    return works_with_topics
+
+
+# Main analysis workflow
+print("Building publications dataframe...")
+works_df = get_publications_table(all_works)
+
+print("\nCleaning and tokenizing paper titles...")
+tokenized_titles = clean_and_process_titles(works_df, "title")
+
+print("\nTraining Gensim LDA model with seed topics...")
+lda_model, dictionary, corpus = train_gensim_lda_with_seeds(
+    tokenized_titles, SEED_TOPICS, num_topics=15, passes=15
+)
+
+print("\n" + "=" * 80)
+print("DISCOVERED TOPICS IN AGRICULTURAL RESEARCH")
+print("=" * 80)
+
+topic_interpretations = display_gensim_topics(
+    lda_model, num_words=10, seed_topics=SEED_TOPICS
+)
+
+print("\nAssigning topics to documents...")
+works_with_topics = get_document_topics(lda_model, corpus, works_df)
+
+# Summary by topic
+print("\n" + "=" * 80)
+print("TOPIC DISTRIBUTION ACROSS PAPERS")
+print("=" * 80)
+topic_summary = (
+    works_with_topics.groupby("dominant_topic")
+    .agg(
+        num_papers=("article_id", "count"),
+        avg_citations=("total_citations", "mean"),
+        total_citations=("total_citations", "sum"),
+    )
+    .sort_values("num_papers", ascending=False)
+)
+
+print(topic_summary)
+
+# Top cited papers by topic
+print("\n" + "=" * 80)
+print("TOP 3 MOST CITED PAPERS PER TOPIC")
+print("=" * 80)
+
+for topic_id in works_with_topics["dominant_topic"].dropna().unique():
+    topic_papers = works_with_topics[works_with_topics["dominant_topic"] == topic_id]
+    top_papers = topic_papers.nlargest(3, "total_citations")
+
+    print(f"\nTopic {int(topic_id) + 1}:")
+    for idx, row in top_papers.iterrows():
+        print(
+            f"  - {row['title'][:80]}... ({row['total_citations']} citations, {row['publication_year']})"
+        )
+# Topic analysis by author
+print("\n" + "=" * 80)
+print("TOPIC DISTRIBUTION BY AUTHOR")
+print("=" * 80)
+
+author_topics = (
+    works_with_topics.groupby(["queried_author", "dominant_topic"])
+    .size()
+    .reset_index(name="count")
+)
+author_topics_pivot = author_topics.pivot(
+    index="queried_author", columns="dominant_topic", values="count"
+).fillna(0)
+
+print("\nNumber of papers per topic for each author:")
+print(author_topics_pivot.astype(int))
+
+# Most common topic per author
+print("\n" + "=" * 80)
+print("PRIMARY RESEARCH FOCUS PER AUTHOR")
+print("=" * 80)
+
+for author in works_with_topics["queried_author"].unique():
+    author_data = works_with_topics[works_with_topics["queried_author"] == author]
+    if author_data["dominant_topic"].notna().any():
+        top_topic = (
+            author_data["dominant_topic"].mode().values[0]
+            if len(author_data) > 0
+            else None
+        )
+        if top_topic is not None:
+            topic_words = lda_model.show_topics(
+                num_topics=-1, num_words=5, formatted=False
+            )[int(top_topic)][1]
+            print(f"\n{author}: Topic {int(top_topic)+1}")
+            print(f"  Keywords: {', '.join([word for word, prob in topic_words])}")
+            print(
+                f"  Papers: {len(author_data)}, Avg citations: {author_data['total_citations'].mean():.1f}"
+            )
+
 # Compare Authors  ------------------------------------------------------------------
 
 
@@ -302,29 +575,28 @@ def plot_pub_and_citations_per_year_per_author():
         }
     )
 
-    # timeline_plot = (
-    #     ggplot(
-    #         summary_long, aes(x="publication_year", y="count", color="queried_author")
-    #     )
-    #     + geom_line(size=1.2)
-    #     + geom_point(size=2)
-    #     + facet_wrap("~metric", scales="free_y", ncol=2)
-    #     + labs(
-    #         title="Author Timeline: Publications and Citations (2020–2025)",
-    #         x="Publication Year",
-    #         y="Count",
-    #         color="Author",
-    #     )
-    #     # + theme_minimal()
-    #     + theme_ff()
-    #     + theme(
-    #         figure_size=(12, 8),
-    #         subplots_adjust={"hspace": 0.4},
-    #         axis_text_x=element_text(rotation=45, ha="right"),
-    #     )
-    # )
+    timeline_plot = (
+        ggplot(
+            summary_long, aes(x="publication_year", y="count", color="queried_author")
+        )
+        + geom_line(size=1.2)
+        + geom_point(size=2)
+        + facet_wrap("~metric", scales="free_y", ncol=2)
+        + labs(
+            title="Author Timeline: Publications and Citations (2020–2025)",
+            x="Publication Year",
+            y="Count",
+            color="Author",
+        )
+        # + theme_minimal()
+        + theme(
+            figure_size=(12, 8),
+            subplots_adjust={"hspace": 0.4},
+            axis_text_x=element_text(rotation=45, ha="right"),
+        )
+    )
 
-    # timeline_plot
+    timeline_plot
 
 
 def summarize_by_journal(works_df):
@@ -466,7 +738,8 @@ concept_df.loc[concept_df["level"] > 2].head(20)
 concept_df = concept_df.sort_values(by="count", ascending=False).reset_index(drop=True)
 
 # Show top rows
-concept_df.head(50)
+print("concept_df:")
+print(concept_df.head(10))
 concept_filt_df = concept_df.loc[concept_df["count"] > 100]
 
 if False:
@@ -533,7 +806,7 @@ if False:
 
 # Set of relevant concept IDs
 concept_ids = set(concept_filt_df["concept_id"][0:2])
-
+print(f"this are the concept ids we will use: {concept_ids}")
 # Map to store work_id → matched_concepts
 work_concept_matches = defaultdict(lambda: {"concepts": set(), "data": None})
 
