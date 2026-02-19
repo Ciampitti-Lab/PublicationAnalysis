@@ -66,7 +66,7 @@ author_ids = {
     "https://openalex.org/A5072153127": "Rattalino",
     "https://openalex.org/A5047677277": "Hoogenboom",
 }
-
+coauthors_ids = {}
 
 """
 Alerts for germanmandrini@gmail.com
@@ -159,7 +159,6 @@ def get_works(author_ids):
     print(f"Total works retrieved: {len(all_works)}")
 
     work = all_works[0]
-    print(work.keys())
     work.keys()
     return all_works
 
@@ -182,14 +181,17 @@ def get_prolific_coauthors(all_works):
                 coauthor_counter[(author_id, author_name)] += 1
 
     # Get top 20 co-authors by count
-    top_coauthors = coauthor_counter.most_common(20)
-
+    top_coauthors = coauthor_counter.most_common(15)
+    coauthors_ids.update({aid: name for (aid, name), count in top_coauthors})
     # Display nicely
     for (aid, name), count in top_coauthors:
         print(f"{name} ({aid}): {count} co-authored papers")
 
 
 get_prolific_coauthors(all_works)
+print(f"Total number of authors in author_ids: {len(author_ids)}")
+print(f"Total number of authors in coauthors_ids: {len(coauthors_ids)}")
+
 # Make it into a df ------------------------------------------------------------------
 
 
@@ -383,8 +385,8 @@ def display_gensim_topics(lda_model, num_words=10, seed_topics=None):
         topic_words = [word for word, prob in words]
         topic_probs = [prob for word, prob in words]
 
-        print(f"\nTopic {topic_id + 1}:")
-        print(" ".join([f"{word}({prob:.3f})" for word, prob in words]))
+        # print(f"\nTopic {topic_id + 1}:")
+        # print(" ".join([f"{word}({prob:.3f})" for word, prob in words]))
 
         # Match to seed topics
         if seed_topics:
@@ -738,8 +740,6 @@ concept_df.loc[concept_df["level"] > 2].head(20)
 concept_df = concept_df.sort_values(by="count", ascending=False).reset_index(drop=True)
 
 # Show top rows
-print("concept_df:")
-print(concept_df.head(10))
 concept_filt_df = concept_df.loc[concept_df["count"] > 100]
 
 if False:
@@ -804,15 +804,17 @@ if False:
 
 # Get All Articles in These Concepts (2020–2025) ------------------------------------------------------------------
 
-# Set of relevant concept IDs
-concept_ids = set(concept_filt_df["concept_id"][0:2])
-print(f"this are the concept ids we will use: {concept_ids}")
+# Create dictionary of relevant concept IDs and names
+concept_ids = dict(
+    zip(concept_filt_df["concept_id"][0:6], concept_filt_df["concept_name"][0:6])
+)
+
 # Map to store work_id → matched_concepts
 work_concept_matches = defaultdict(lambda: {"concepts": set(), "data": None})
 
 # Loop through each concept ID
-for cid in concept_ids:
-    print(f"Fetching works for concept: {cid}")
+for cid, name in concept_ids.items():
+    print(f"\nFetching works for concept: {name} ")
     cursor = "*"
     while cursor:
         result = (
@@ -830,7 +832,9 @@ for cid in concept_ids:
         for work in result:
             wid = work["id"]
             matched_concepts = {
-                c["id"] for c in work.get("concepts", []) if c["id"] in concept_ids
+                c["id"]
+                for c in work.get("concepts", [])
+                if c["id"] in concept_ids.keys()
             }
 
             if len(matched_concepts) >= 1:
