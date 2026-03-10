@@ -1,5 +1,3 @@
-import sys
-from numpy import nan
 from pyalex import Works, Authors
 import pandas as pd
 import spacy
@@ -9,8 +7,6 @@ from datetime import datetime
 from plotnine import *
 from plotnine.data import *
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-import gensim
 from gensim import corpora
 from gensim.models import LdaModel
 import numpy as np
@@ -962,5 +958,5 @@ for topic_id in works_with_topics["dominant_topic"].dropna().unique():
     print(f"\nTopic {int(topic_id) + 1}:")
     for idx, row in top_papers.iterrows():
         print(
-            f"  - {row['title'][:80]}... ({row['total_citations']} citations, {row['publication_year']})"
+            f"  - {row['title'][:80]}... ({row['total_citations']} citations, {row['publication_year']}, {row['article_id']})"
         )
