@@ -9796,24 +9796,7 @@ Legume Nitrogen Fixing Symbiosis                8      4.4
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=cf8b25a6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [48]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">ta_ten</span><span class="o">=</span><span class="n">get_publications_table</span><span class="p">(</span><span class="n">Target_author_works_2015</span><span class="p">)</span>
-<span class="n">ta_ten_corr</span><span class="o">=</span><span class="n">ta_ten</span><span class="p">[</span><span class="n">ta_ten</span><span class="p">[</span><span class="s2">"is_corresponding_author"</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">papers_per_author</span> <span class="o">=</span> <span class="n">ta_ten_corr</span><span class="p">[</span><span class="s2">"queried_author"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Papers per Target_author author (corresponding only, 2015–2025):"</span><span class="p">)</span>
-<span class="n">papers_per_author</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=cf8b25a6">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -9847,58 +9830,7 @@ Name: count, dtype: int64</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19008b1c">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [49]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_citation_curve_single_paper</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">article_id</span><span class="p">,</span> <span class="n">max_year</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-    <span class="n">row</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"article_id"</span><span class="p">]</span> <span class="o">==</span> <span class="n">article_id</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"citations_year_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
-        <span class="n">citations</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">citations</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">citations</span><span class="p">)</span> <span class="k">else</span> <span class="n">citations</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="n">citations</span><span class="p">))</span>
-
-    <span class="n">curve_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"year_since_pub"</span><span class="p">,</span> <span class="s2">"citations"</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">curve_df</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=4fc82175">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [50]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Citation-by-year columns (from get_publications_table)</span>
-<span class="n">cit_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">ta_ten_corr</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"citations_year_"</span><span class="p">)]</span>
-
-<span class="n">ciampitti_df</span> <span class="o">=</span> <span class="n">ta_ten_corr</span><span class="p">[</span>
-    <span class="n">ta_ten_corr</span><span class="p">[</span><span class="s2">"queried_author"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">"ciampitti"</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">na</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="p">]</span>
-
-<span class="c1"># Keep papers with citations in at least 3 different years</span>
-<span class="n">ciampitti_3yr</span> <span class="o">=</span> <span class="n">ciampitti_df</span><span class="p">[</span>
-    <span class="p">(</span><span class="n">ciampitti_df</span><span class="p">[</span><span class="n">cit_cols</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span>
-<span class="p">]</span>
-
-<span class="n">random_paper</span> <span class="o">=</span> <span class="n">ciampitti_3yr</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">random_paper</span><span class="o">.</span><span class="n">title</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=4fc82175">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -9912,23 +9844,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f1fb7388">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [51]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">paper_id</span> <span class="o">=</span><span class="n">random_paper</span><span class="p">[</span><span class="s2">"article_id"</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-<span class="n">curve_df</span> <span class="o">=</span> <span class="n">get_citation_curve_single_paper</span><span class="p">(</span><span class="n">ta_ten</span><span class="p">,</span> <span class="n">paper_id</span><span class="p">)</span>
-
-<span class="n">curve_df</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=f1fb7388">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10031,26 +9947,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=609d0d74">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [52]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">curve_df</span><span class="p">[</span><span class="s2">"year_since_pub"</span><span class="p">],</span> <span class="n">curve_df</span><span class="p">[</span><span class="s2">"citations"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Citations per year"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Citation trajectory (single paper)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=609d0d74">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10063,42 +9960,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=5038f4cb">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [53]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">build_citation_matrix</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">max_year</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
-    <span class="n">citation_matrix</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">row_data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"article_id"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">"article_id"</span><span class="p">]}</span>
-
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-            <span class="n">col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"citations_year_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span>
-
-            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-                <span class="n">val</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
-                <span class="n">row_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="c1"># Year does not exist → should be NaN</span>
-                <span class="n">row_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">"y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-
-        <span class="n">citation_matrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_data</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">)</span>
-
-<span class="n">citation_matrix</span> <span class="o">=</span> <span class="n">build_citation_matrix</span><span class="p">(</span><span class="n">ta_ten_corr</span><span class="p">,</span> <span class="n">max_year</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">citation_matrix</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
-<span class="n">citation_matrix</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=5038f4cb">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10240,39 +10102,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d29bb872">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [54]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_aggregate_curves</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Compute mean and median citation curves across all papers.</span>
-<span class="sd">    Ignores NaN values (correct handling of missing years).</span>
-<span class="sd">    """</span>
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">citation_matrix</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">mean_curve</span> <span class="o">=</span> <span class="n">citation_matrix</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">median_curve</span> <span class="o">=</span> <span class="n">citation_matrix</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">curve_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
-        <span class="s2">"year_since_pub"</span><span class="p">:</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">],</span>
-        <span class="s2">"mean_citations"</span><span class="p">:</span> <span class="n">mean_curve</span><span class="o">.</span><span class="n">values</span><span class="p">,</span>
-        <span class="s2">"median_citations"</span><span class="p">:</span> <span class="n">median_curve</span><span class="o">.</span><span class="n">values</span>
-    <span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">curve_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"year_since_pub"</span><span class="p">)</span>
-<span class="n">agg_curve</span> <span class="o">=</span> <span class="n">compute_aggregate_curves</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">)</span>
-
-<span class="n">agg_curve</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=d29bb872">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10389,31 +10219,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=17ca9c19">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [55]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">agg_curve</span><span class="p">[</span><span class="s2">"year_since_pub"</span><span class="p">],</span> <span class="n">agg_curve</span><span class="p">[</span><span class="s2">"mean_citations"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Mean"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">agg_curve</span><span class="p">[</span><span class="s2">"year_since_pub"</span><span class="p">],</span> <span class="n">agg_curve</span><span class="p">[</span><span class="s2">"median_citations"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Median"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Citations per year"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Aggregate citation trajectory"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=17ca9c19">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10426,40 +10232,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d2135141">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [56]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_citation_matrix</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Normalize each paper's citation curve by its total citations.</span>
-<span class="sd">    Converts absolute counts → relative shape.</span>
-<span class="sd">    """</span>
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">citation_matrix</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">norm_matrix</span> <span class="o">=</span> <span class="n">citation_matrix</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">norm_matrix</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">years</span><span class="p">]</span>
-        <span class="n">total</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">norm_matrix</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">years</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span> <span class="o">/</span> <span class="n">total</span>
-
-    <span class="k">return</span> <span class="n">norm_matrix</span>
-<span class="n">norm_matrix</span> <span class="o">=</span> <span class="n">normalize_citation_matrix</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">)</span>
-<span class="n">norm_agg_curve</span> <span class="o">=</span> <span class="n">compute_aggregate_curves</span><span class="p">(</span><span class="n">norm_matrix</span><span class="p">)</span>
-<span class="n">norm_agg_curve</span> <span class="o">=</span> <span class="n">norm_agg_curve</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-<span class="n">norm_agg_curve</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=d2135141">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10570,29 +10343,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ca9ccb65">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [57]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">norm_agg_curve</span><span class="p">[</span><span class="s2">"year_since_pub"</span><span class="p">],</span> <span class="n">norm_agg_curve</span><span class="p">[</span><span class="s2">"median_citations"</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Fraction of total citations"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Normalized citation lifecycle (median)"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=ca9ccb65">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10605,55 +10356,13 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=ec447a09">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [58]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compute_author_curves</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Compute median citation curve per author.</span>
-<span class="sd">    """</span>
-    <span class="c1"># Merge author info</span>
-    <span class="n">merged</span> <span class="o">=</span> <span class="n">citation_matrix</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
-        <span class="n">df</span><span class="p">[[</span><span class="s2">"article_id"</span><span class="p">,</span> <span class="s2">"queried_author"</span><span class="p">]],</span>
-        <span class="n">on</span><span class="o">=</span><span class="s2">"article_id"</span><span class="p">,</span>
-        <span class="n">how</span><span class="o">=</span><span class="s2">"left"</span>
-    <span class="p">)</span>
-
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">citation_matrix</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">author_curves</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="k">for</span> <span class="n">author</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">merged</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"queried_author"</span><span class="p">):</span>
-        <span class="n">median_curve</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"author"</span><span class="p">:</span> <span class="n">author</span><span class="p">,</span>
-            <span class="o">**</span><span class="p">{</span><span class="sa">f</span><span class="s2">"y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">:</span> <span class="n">median_curve</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"y</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">))}</span>
-        <span class="p">}</span>
-
-        <span class="n">author_curves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">author_curves</span><span class="p">)</span>
-
-<span class="n">author_curves</span> <span class="o">=</span> <span class="n">compute_author_curves</span><span class="p">(</span><span class="n">citation_matrix</span><span class="p">,</span> <span class="n">ta_ten_corr</span><span class="p">)</span>
-
-<span class="n">author_curves</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=ec447a09">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[58]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -10782,34 +10491,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=096418c7">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [59]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">author_curves</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">author_curves</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span> <span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">"author"</span><span class="p">])</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Median citations per year"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Citation trajectories by author"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=096418c7">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10822,37 +10504,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fd8b3bd6">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [60]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_author_curves</span><span class="p">(</span><span class="n">author_curves</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Normalize each author's citation curve so it sums to 1.</span>
-<span class="sd">    """</span>
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">author_curves</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">norm_df</span> <span class="o">=</span> <span class="n">author_curves</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">norm_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">years</span><span class="p">]</span>
-        <span class="n">total</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">skipna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">norm_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="n">years</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span> <span class="o">/</span> <span class="n">total</span>
-
-    <span class="k">return</span> <span class="n">norm_df</span>
-<span class="n">norm_author_curves</span> <span class="o">=</span> <span class="n">normalize_author_curves</span><span class="p">(</span><span class="n">author_curves</span><span class="p">)</span>
-<span class="n">norm_author_curves</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=fd8b3bd6">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -10987,45 +10639,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=54e84d50">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [61]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_author_groups</span><span class="p">(</span><span class="n">norm_author_curves</span><span class="p">):</span>
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">norm_author_curves</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">authors</span> <span class="o">=</span> <span class="n">norm_author_curves</span><span class="p">[</span><span class="s2">"author"</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-    <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">authors</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-
-    <span class="n">groups</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">norm_author_curves</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">mid</span><span class="p">],</span>
-        <span class="n">norm_author_curves</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">mid</span><span class="p">:]</span>
-    <span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-            <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span> <span class="n">values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">"author"</span><span class="p">])</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Fraction of total citations"</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Normalized citation lifecycle (Group </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-<span class="n">plot_author_groups</span><span class="p">(</span><span class="n">norm_author_curves</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=54e84d50">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -11044,39 +10658,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d4dab2e4">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [62]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_peak_years</span><span class="p">(</span><span class="n">norm_author_curves</span><span class="p">):</span>
-    <span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">norm_author_curves</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-    <span class="n">peaks</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">norm_author_curves</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-
-        <span class="n">peak_year</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
-        <span class="n">peak_year</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">peak_year</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-        <span class="n">peak_value</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-
-        <span class="n">peaks</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
-            <span class="s2">"author"</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">"author"</span><span class="p">],</span>
-            <span class="s2">"peak_year"</span><span class="p">:</span> <span class="n">peak_year</span><span class="p">,</span>
-            <span class="s2">"peak_fraction"</span><span class="p">:</span> <span class="n">peak_value</span>
-        <span class="p">})</span>
-
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">peaks</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">"peak_year"</span><span class="p">)</span>
-<span class="n">peak_df</span> <span class="o">=</span> <span class="n">get_peak_years</span><span class="p">(</span><span class="n">norm_author_curves</span><span class="p">)</span>
-<span class="n">peak_df</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=d4dab2e4">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -11187,27 +10769,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=864f5173">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [63]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">author_counts</span> <span class="o">=</span> <span class="n">ta_ten_corr</span><span class="p">[</span><span class="s2">"queried_author"</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
-<span class="n">valid_authors</span> <span class="o">=</span> <span class="n">author_counts</span><span class="p">[</span><span class="n">author_counts</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
-
-<span class="n">filtered_curves</span> <span class="o">=</span> <span class="n">norm_author_curves</span><span class="p">[</span>
-    <span class="n">norm_author_curves</span><span class="p">[</span><span class="s2">"author"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">valid_authors</span><span class="p">)</span>
-<span class="p">]</span>
-<span class="n">plot_author_groups</span><span class="p">(</span><span class="n">filtered_curves</span><span class="p">)</span>
-<span class="c1">#Esto es teniendo en cuenta autores con al menos 10 papers, para evitar ruido de pocos datos. Se pueden ajustar ese umbral o eliminarlo para incluir a todos los autores.</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=220b1b27">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
@@ -11226,74 +10788,7 @@ Name: title, dtype: str</pre>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1f773ecd">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [64]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
-
-<span class="n">years</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">filtered_curves</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"y"</span><span class="p">)]</span>
-
-<span class="n">X</span> <span class="o">=</span> <span class="n">filtered_curves</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=151a08c5">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [65]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">clusters</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-
-<span class="n">filtered_curves</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusters</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=081f8233">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [66]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-
-<span class="k">for</span> <span class="n">cluster_id</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">filtered_curves</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()):</span>
-    <span class="n">group</span> <span class="o">=</span> <span class="n">filtered_curves</span><span class="p">[</span><span class="n">filtered_curves</span><span class="p">[</span><span class="s2">"cluster"</span><span class="p">]</span> <span class="o">==</span> <span class="n">cluster_id</span><span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span> <span class="n">values</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-
-    <span class="c1"># plot cluster mean</span>
-    <span class="n">mean_curve</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">years</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">years</span><span class="p">)),</span> <span class="n">mean_curve</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">"Cluster </span><span class="si">{</span><span class="n">cluster_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Years since publication"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Fraction of total citations"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Citation behavior clusters"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell celltag_hide-input" id="cell-id=081f8233">
 <div class="jp-Cell-outputWrapper">
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
