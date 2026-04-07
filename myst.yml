@@ -2,7 +2,14 @@
 version: 1
 project:
   id: 9ad94437-c823-42cf-a97f-9700220a4948
-  # title:
+  title: Publication Analysis
+  pages:
+    - file: index.md      
+    - title: Analyses
+      children:
+        - file: books/Target_author_analysis.ipynb
+        - file: books/Topic_Journal_analysis.ipynb
+        - file: books/All_Authors_analysis.ipynb
   # description:
   # keywords: []
   # authors: []
