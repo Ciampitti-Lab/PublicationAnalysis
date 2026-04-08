@@ -1,4 +1,6 @@
-from pyalex import Works, Authors
+from pathlib import Path
+
+from pyalex import Works, Authors, Sources
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -321,39 +323,108 @@ def get_publications_table(works_list):
     df.reset_index(drop=True, inplace=True)
     return df
 
-__main__ = "__main__"
-    
-# ── Fetch data  (runs once; ~2-5 min depending on API speed) ──────────────────
-print("Fetching Target_author authors")
-Target_author_works = get_works(author_ids)
-JOURNAL_IF_2025 = get_journal_impact_factors(Target_author_works)
-print("\nJournal impact factors (2025):")
-print(JOURNAL_IF_2025.head(10).to_string(index=False))
-Target_author_works_2015 = get_works(author_ids,from_date="2015-01-01", to_date="2025-12-31")
-print(f"\n Identifying co-authors with more than {MIN_SHARED_PAPERS} papers as coauthors")
-coauthors_ids = get_prolific_coauthors(
-    Target_author_works,
-    author_ids,
-    coauthors_ids,
-    min_shared_papers=MIN_SHARED_PAPERS,
-    top_n=None,
- )
 
-coauthors_works = get_works(coauthors_ids)
+def load_journals_of_interest(path: str | Path) -> list[str]:
+    with open(path, "r", encoding="utf-8") as handle:
+        return [line.strip() for line in handle if line.strip()]
 
-# ── Tag each raw work with its author_type ─────────────────────────────────────
-for w in Target_author_works:
-    w["author_type"] = "Target_author"
-for w in coauthors_works:
-    w["author_type"] = "Collaborator"
+def prepare_output_tables(
+    target_author_works,
+    coauthors_works,
+    journals_of_interest,
+    target_author_works_2015=None,
+):
+    for work in target_author_works:
+        work["author_type"] = "Target_author"
+    for work in coauthors_works:
+        work["author_type"] = "Collaborator"
 
-# ── Combine into a single list (no duplicate API calls) ───────────────────────
-Target_authors_df= get_publications_table(Target_author_works)
-coauthors_df = get_publications_table(coauthors_works)
-all_works = Target_author_works + coauthors_works
-all_df = get_publications_table(all_works)
+    target_df = get_publications_table(target_author_works)
+    coauthors_df = get_publications_table(coauthors_works)
+    all_works = target_author_works + coauthors_works
+    all_df = get_publications_table(all_works)
 
-print(f"\n3 different tables:")
-print(f"Target_author works   : {Target_authors_df.shape[0]}")
-print(f"Coauthor works  : {coauthors_df.shape[0]}")
-print(f"Total combined  : {all_df.shape[0]}")
+    filtered_target_df = target_df[target_df["journal_display_name"].isin(journals_of_interest)].copy()
+    filtered_all_df = all_df[all_df["journal_display_name"].isin(journals_of_interest)].copy()
+
+    filtered_target_df_corr = filtered_target_df[filtered_target_df["is_corresponding_author"]].copy()
+    filtered_all_df_corr = filtered_all_df[filtered_all_df["is_corresponding_author"]].copy()
+
+    ta_ten_corr = pd.DataFrame()
+    if target_author_works_2015 is not None:
+        ta_ten = get_publications_table(target_author_works_2015)
+        ta_ten = ta_ten[ta_ten["journal_display_name"].isin(journals_of_interest)].copy()
+        ta_ten_corr = ta_ten[ta_ten["is_corresponding_author"]].copy()
+
+    return {
+        "Target_authors_df": target_df,
+        "coauthors_df": coauthors_df,
+        "all_df": all_df,
+        "filtered_TargetA_df": filtered_target_df,
+        "filtered_TargetA_df_corr": filtered_target_df_corr,
+        "filtered_all_df": filtered_all_df,
+        "filtered_all_df_corr": filtered_all_df_corr,
+        "ta_ten_corr": ta_ten_corr,
+    }
+
+
+def save_output_tables(tables, output_dir: str | Path):
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    file_map = {
+        "filtered_TargetA_df": "filtered_TargetA_df.csv",
+        "filtered_TargetA_df_corr": "filtered_TargetA_df_corr.csv",
+        "filtered_all_df": "filtered_all_df.csv",
+        "filtered_all_df_corr": "filtered_all_df_corr.csv",
+        "ta_ten_corr": "ta_ten_corr.csv",
+        "JOURNAL_IF_2025": "JOURNAL_IF_2025.csv",
+    }
+
+    for key, filename in file_map.items():
+        df = tables.get(key)
+        if df is not None and not df.empty:
+            df.to_csv(output_dir / filename, index=False)
+
+
+def main():
+    project_root = Path(__file__).resolve().parents[1]
+    data_dir = project_root / "data"
+    journals_path = project_root / "journals_of_interest.txt"
+
+    print("Fetching Target_author authors")
+    target_author_works = get_works(author_ids)
+    journal_if_2025 = get_journal_impact_factors(target_author_works)
+    print("\nJournal impact factors (2025):")
+    print(journal_if_2025.head(10).to_string(index=False))
+
+    target_author_works_2015 = get_works(author_ids, from_date="2015-01-01", to_date="2025-12-31")
+    print(f"\nIdentifying co-authors with more than {MIN_SHARED_PAPERS} papers as coauthors")
+    get_prolific_coauthors(
+        target_author_works,
+        author_ids,
+        coauthors_ids,
+        min_shared_papers=MIN_SHARED_PAPERS,
+        top_n=None,
+    )
+    coauthors_works = get_works(coauthors_ids)
+
+    journals_of_interest = load_journals_of_interest(journals_path)
+    tables = prepare_output_tables(
+        target_author_works,
+        coauthors_works,
+        journals_of_interest,
+        target_author_works_2015=target_author_works_2015,
+    )
+    tables["JOURNAL_IF_2025"] = journal_if_2025
+
+    save_output_tables(tables, data_dir)
+
+    print(f"\n3 different tables:")
+    print(f"Target_author works   : {tables['Target_authors_df'].shape[0]}")
+    print(f"Coauthor works  : {tables['coauthors_df'].shape[0]}")
+    print(f"Total combined  : {tables['all_df'].shape[0]}")
+
+
+if __name__ == "__main__":
+    main()
