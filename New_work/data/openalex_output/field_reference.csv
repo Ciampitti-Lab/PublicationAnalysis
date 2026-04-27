@@ -1,0 +1,140 @@
+entity,field,description
+Work,id,OpenAlex URL ID  (https://openalex.org/W…)
+Work,doi,DOI — canonical external ID for works
+Work,ids.mag,Microsoft Academic Graph ID
+Work,ids.pmid,PubMed ID
+Work,ids.pmcid,PubMed Central ID
+Work,doi_registration_agency,"Who registered the DOI (e.g. Crossref, DataCite)"
+Work,title,Full title of the work
+Work,display_name,Same as title (present on all OpenAlex entity types)
+Work,publication_year,Integer publication year
+Work,publication_date,ISO 8601 full publication date
+Work,type,Normalised type: article | book | book-chapter | dataset | dissertation | editorial | erratum | grant | letter | other | paratext | peer-review | posted-content | preprint | proceedings | proceedings-article | reference-entry | report | retraction | review | standard | supplementary-materials
+Work,type_crossref,Raw type string from Crossref (less normalised)
+Work,language,ISO 639-1 language code (auto-detected)
+Work,indexed_in,[LIST] Indexes: crossref | doaj | pubmed | pubmed_central
+Work,cited_by_count,Total citations received
+Work,cited_by_api_url,API URL to retrieve the list of citing works
+Work,counts_by_year,"[LIST] [{year, cited_by_count}] for last 10 years"
+Work,fwci,Field-Weighted Citation Impact (received / expected)
+Work,citation_normalized_percentile.value,FWCI expressed as a percentile
+Work,citation_normalized_percentile.is_in_top_1_percent,Boolean: top 1% by citations
+Work,citation_normalized_percentile.is_in_top_10_percent,Boolean: top 10% by citations
+Work,authorships,"[LIST] [{author_position, author:{id,display_name,orcid}, institutions:[{id,display_name,ror,country_code,type}], countries:[], is_corresponding, raw_affiliation_strings, raw_author_name}]"
+Work,corresponding_author_ids,[LIST] OpenAlex IDs of corresponding authors
+Work,corresponding_institution_ids,[LIST] OpenAlex institution IDs of corresponding author affiliations
+Work,authors_count,Number of authors (len of authorships list)
+Work,countries_distinct_count,Number of distinct country codes across all authorships
+Work,institutions_distinct_count,Number of distinct institutions across all authorships
+Work,queried_author_id,OpenAlex ID of the author this work was fetched for
+Work,queried_author_position,first | middle | last
+Work,queried_author_is_corresponding,Boolean: True when this author is the corresponding author
+Work,queried_author_raw_name,Name string exactly as it appeared on the paper
+Work,queried_author_raw_affiliation,[LIST] Raw affiliation strings for this author
+Work,is_oa,Boolean shortcut for open_access.is_oa
+Work,oa_status,diamond | gold | hybrid | bronze | green | closed
+Work,oa_url,Best available OA URL (PDF or landing page)
+Work,any_repository_has_fulltext,Boolean: at least one repository copy exists
+Work,locations_count,Number of locations (publisher + repositories)
+Work,primary_location.is_oa,Boolean: primary location is OA
+Work,primary_location.version,publishedVersion | acceptedVersion | submittedVersion
+Work,primary_location.license,Creative Commons or publisher license string
+Work,primary_location.landing_page_url,Landing page URL of the version of record
+Work,primary_location.pdf_url,Direct PDF URL at the primary location
+Work,source_id,OpenAlex ID of the publishing venue
+Work,source_display_name,Name of the journal / venue
+Work,source_issn_l,ISSN-L of the venue
+Work,source_issn,[LIST] All ISSNs of the venue
+Work,source_type,journal | conference | repository | ebook-platform | book-series | metadata
+Work,source_is_oa,Boolean: venue is fully open access
+Work,source_is_in_doaj,Boolean: venue indexed in DOAJ
+Work,source_is_core,Boolean: venue indexed in CORE
+Work,source_host_org_name,Publisher name
+Work,apc_list_value_usd,Article processing charge list price in USD
+Work,apc_paid_value_usd,APC actually paid in USD (when available)
+Work,has_fulltext,Boolean: fulltext n-grams are available
+Work,fulltext_origin,pdf | ngrams
+Work,primary_topic_id,OpenAlex ID of the primary topic
+Work,primary_topic_name,Display name of the primary topic
+Work,primary_topic_score,Similarity score for the primary topic
+Work,primary_subfield_id,OpenAlex ID of the subfield
+Work,primary_subfield_name,Display name of the subfield
+Work,primary_field_id,OpenAlex ID of the field
+Work,primary_field_name,Display name of the field
+Work,primary_domain_id,OpenAlex ID of the domain
+Work,primary_domain_name,Display name of the domain
+Work,all_topics,"[LIST] All topics with scores, subfield, field, domain"
+Work,keywords,"[LIST] [{id, display_name, score}]"
+Work,sustainable_development_goals,[LIST] UN SDGs with scores
+Work,funders,"[LIST] [{id, display_name, doi, country_code, ror, awards:[…]}]"
+Work,referenced_works_count,Number of works cited by this work
+Work,referenced_works,[LIST] OpenAlex IDs of works cited by this work
+Work,related_works,[LIST] OpenAlex IDs of algorithmically related works
+Work,mesh,"[LIST] MeSH terms if indexed in PubMed [{descriptor_ui, descriptor_name, qualifier_ui, qualifier_name, is_major_topic}]"
+Work,abstract,Plain-text abstract reconstructed from inverted index
+Work,created_date,ISO 8601 date this Work was added to OpenAlex
+Work,updated_date,ISO 8601 datetime of last update in OpenAlex
+Author,id,OpenAlex URL ID (https://openalex.org/A…)
+Author,orcid,ORCID URL — canonical external ID for authors
+Author,ids.mag,Microsoft Academic Graph ID
+Author,ids.scopus,Scopus author ID
+Author,ids.twitter,Twitter handle
+Author,ids.wikipedia,Wikipedia page URL
+Author,display_name,Author's canonical name in OpenAlex
+Author,display_name_alternatives,[LIST] Other name forms found in the literature
+Author,works_count,Total works attributed to this author
+Author,cited_by_count,Total citations across all this author's works
+Author,summary_stats.h_index,h-index
+Author,summary_stats.i10_index,i10-index (papers with ≥10 citations)
+Author,summary_stats.oa_percent,Percentage of works that are open access
+Author,summary_stats.2yr_mean_citedness,Mean citations per paper in the last 2 years
+Author,summary_stats.2yr_h_index,h-index over the last 2 years
+Author,summary_stats.2yr_i10_index,i10-index over the last 2 years
+Author,summary_stats.2yr_works_count,Works published in the last 2 years
+Author,summary_stats.2yr_cited_by_count,Citations received in the last 2 years
+Author,counts_by_year,"[LIST] [{year, works_count, cited_by_count}] last 10 years"
+Author,last_known_institution_id,OpenAlex ID of most recent institution
+Author,last_known_institution_name,Name of most recent institution
+Author,last_known_institution_ror,ROR of most recent institution
+Author,last_known_institution_country,Country code of most recent institution
+Author,all_last_known_institutions,[LIST] All current institutions (some have multiple)
+Author,affiliations_history,"[LIST] [{institution:{…}, years:[]}] full affiliation history"
+Author,top_topic_id,OpenAlex ID of author's primary topic
+Author,top_topic_name,Name of author's primary topic
+Author,all_topics,"[LIST] All topics with counts, subfield, field, domain"
+Author,works_api_url,API URL to retrieve all works by this author
+Author,created_date,ISO 8601 date this Author was added to OpenAlex
+Author,updated_date,ISO 8601 datetime of last update in OpenAlex
+Source,id,OpenAlex URL ID (https://openalex.org/S…)
+Source,issn_l,ISSN-L — canonical external ID for sources
+Source,issn,[LIST] All ISSNs for this source
+Source,ids.mag,Microsoft Academic Graph ID
+Source,ids.wikidata,Wikidata ID
+Source,ids.fatcat,Fatcat ID
+Source,display_name,Journal or venue name
+Source,abbreviated_title,Abbreviated title from the ISSN Centre
+Source,alternate_titles,[LIST] Other known titles / abbreviations
+Source,host_organization,OpenAlex ID of host (Publisher or Institution)
+Source,host_organization_name,Name of the host organisation
+Source,host_organization_lineage_names,[LIST] Publisher hierarchy (parent names)
+Source,societies,"[LIST] [{url, organization}] associated societies"
+Source,type,journal | conference | repository | ebook-platform | book-series | metadata
+Source,is_oa,Boolean: fully open access source
+Source,is_in_doaj,Boolean: indexed in DOAJ
+Source,is_core,Boolean: indexed in CORE
+Source,is_indexed_in_scopus,Boolean: indexed in Scopus
+Source,apc_prices,"[LIST] [{price, currency}] from DOAJ"
+Source,apc_usd,APC converted to USD
+Source,works_count,Total works hosted by this source
+Source,cited_by_count,Total citations to all works in this source
+Source,summary_stats.h_index,Journal h-index
+Source,summary_stats.i10_index,Journal i10-index
+Source,summary_stats.oa_percent,Percentage of OA works
+Source,summary_stats.2yr_mean_citedness,2-year mean citedness (≈ Impact Factor)
+Source,summary_stats.2yr_h_index,h-index over last 2 years
+Source,counts_by_year,"[LIST] [{year, works_count, cited_by_count}]"
+Source,topics,[LIST] Most common topics in this source
+Source,homepage_url,Source's main website
+Source,works_api_url,API URL to retrieve all works in this source
+Source,created_date,ISO 8601 date this Source was added to OpenAlex
+Source,updated_date,ISO 8601 datetime of last update in OpenAlex

@@ -35,7 +35,7 @@ import requests
 
 # Path to the input CSV (adjust if running from a different directory)
 INPUT_CSV = Path(
-    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication analysis\\New_work\\data\\top50_agri_agronomy_authors.csv"
+    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication_analysis\\New_work\\data\\top50_agri_agronomy_authors.csv"
 )
 
 # ── TIME WINDOW ──────────────────────────────────────────────────────────────
@@ -45,7 +45,7 @@ YEAR_END = 2025  # inclusive
 
 # Output folder
 OUTPUT_DIR = Path(
-    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication analysis\\New_work\\data\\open_alex_data"
+    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication_analysis\\New_work\\data\\openalex_output"
 )
 
 # Your email → puts you in OpenAlex's "polite pool" (faster, ~10 req/s)
