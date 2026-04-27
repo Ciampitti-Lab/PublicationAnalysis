@@ -1,8 +1,8 @@
 """
 =============================================================================
-OpenAlex Data Collector — Top 50 Agriculture & Agronomy Authors
+OpenAlex Data Collector — Top 100 Agriculture & Agronomy Authors
 =============================================================================
-Input  : top50_agri_agronomy_authors.csv  (OpenAlex IDs already resolved)
+Input  : top100_agri_agronomy_authors.csv  (OpenAlex IDs already resolved)
 Output : openalex_output/
             authors.csv       — Full author metadata (one row per author)
             works.csv         — Corresponding-author papers in time window
@@ -35,17 +35,17 @@ import requests
 
 # Path to the input CSV (adjust if running from a different directory)
 INPUT_CSV = Path(
-    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication_analysis\\New_work\\data\\top50_agri_agronomy_authors.csv"
+    "/home/ramir713/PublicationAnalysis/data/machine_learning_data/top100_agronomy_scientists.csv"
 )
 
 # ── TIME WINDOW ──────────────────────────────────────────────────────────────
 YEAR_START = 2018  # inclusive
-YEAR_END = 2025  # inclusive
+YEAR_END = 2023  # inclusive
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Output folder
 OUTPUT_DIR = Path(
-    "C:\\Users\\locos\\Documents\\CiampittiLab\\Publication_analysis\\New_work\\data\\openalex_output"
+    "/home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output"
 )
 
 # Your email → puts you in OpenAlex's "polite pool" (faster, ~10 req/s)
