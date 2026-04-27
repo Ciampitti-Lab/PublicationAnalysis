@@ -7,9 +7,9 @@ project:
     - file: index.md      
     - title: Analyses
       children:
-        - file: books/Target_author_analysis.ipynb
-        - file: books/Topic_Journal_analysis.ipynb
-        - file: books/All_Authors_analysis.ipynb
+        - file: Authors_analysis/Target_author_analysis.ipynb
+        - file: Authors_analysis/Topic_Journal_analysis.ipynb
+        - file: Authors_analysis/All_Authors_analysis.ipynb
   # description:
   # keywords: []
   # authors: []
