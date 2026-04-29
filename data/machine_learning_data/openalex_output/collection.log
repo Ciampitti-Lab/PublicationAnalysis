@@ -1,550 +1,706 @@
-2026-04-22 11:39:26,251 [INFO] ======================================================================
-2026-04-22 11:39:26,251 [INFO] OpenAlex Agriculture & Agronomy — Data Collection
-2026-04-22 11:39:26,252 [INFO] Time window   : 2018–2025
-2026-04-22 11:39:26,252 [INFO] Filter        : corresponding author only
-2026-04-22 11:39:26,252 [INFO] Input CSV     : C:\Users\locos\Documents\CiampittiLab\Publication_analysis\New_work\data\top50_agri_agronomy_authors.csv
-2026-04-22 11:39:26,252 [INFO] Output dir    : C:\Users\locos\Documents\CiampittiLab\Publication_analysis\New_work\data\openalex_output
-2026-04-22 11:39:26,266 [INFO] ======================================================================
-2026-04-22 11:39:26,266 [INFO] 
-[STEP 1] Loading authors from CSV …
-2026-04-22 11:39:26,268 [INFO] Loaded 50 authors from C:\Users\locos\Documents\CiampittiLab\Publication_analysis\New_work\data\top50_agri_agronomy_authors.csv
-2026-04-22 11:39:26,269 [INFO] 
-[STEP 2] Fetching author metadata (50 authors) …
-2026-04-22 11:39:26,269 [INFO]   [ 1] Lal, Rattan A. (A5049890100)
-2026-04-22 11:39:27,186 [INFO]   [ 2] KUZYAKOV, Yakov V. (A5062508940)
-2026-04-22 11:39:27,825 [INFO]   [ 3] Lehmann, Johannes C. (A5107909077)
-2026-04-22 11:39:28,431 [INFO]   [ 4] Jones, Davey Leonard (A5064381910)
-2026-04-22 11:39:29,129 [INFO]   [ 5] Cakmak, Ismail (A5065205022)
-2026-04-22 11:39:29,699 [INFO]   [ 6] Kógel-Knabner, Ingrid (A5103365530)
-2026-04-22 11:39:30,305 [INFO]   [ 7] Schimel, Joshua P. (A5109381818)
-2026-04-22 11:39:30,906 [INFO]   [ 8] Blanco-Canqui, Humberto (A5036338247)
-2026-04-22 11:39:31,430 [INFO]   [ 9] Six, Johan W. (A5106037822)
-2026-04-22 11:39:31,978 [INFO]   [10] Marschner, Petra (A5063620162)
-2026-04-22 11:39:32,524 [INFO]   [11] Liang, Chao (A5077414930)
-2026-04-22 11:39:33,048 [INFO]   [12] Barbedo, Jayme G.A. (A5021890642)
-2026-04-22 11:39:33,556 [INFO]   [13] Thornton, Philip K. (A5044287766)
-2026-04-22 11:39:34,122 [INFO]   [14] Etesami, Hassan (A5124185567)
-2026-04-22 11:39:34,634 [INFO]   [15] Brookes, Philip Charles (A5109976669)
-2026-04-22 11:39:35,142 [INFO]   [16] Giller, Ken E. (A5077023973)
-2026-04-22 11:39:35,752 [INFO]   [17] Joergensen, Rainer Georg (A5113464690)
-2026-04-22 11:39:36,260 [INFO]   [18] McBratney, Alex B. (A5123669076)
-2026-04-22 11:39:36,800 [INFO]   [19] Rengel, Z. (A5012706461)
-2026-04-22 11:39:37,387 [INFO]   [20] Chauhan, Bhagirath Singh (A5077353489)
-2026-04-22 11:39:37,985 [INFO]   [21] Frey, Serita D. (A5022401188)
-2026-04-22 11:39:38,541 [INFO]   [22] Klerkx, Laurens W.A. (A5029868613)
-2026-04-22 11:39:39,080 [INFO]   [23] Bremner, John M. (A5009643988)
-2026-04-22 11:39:39,612 [INFO]   [24] Franzluebbers, Alan J. (A5038719083)
-2026-04-22 11:39:40,179 [INFO]   [25] Cassman, Kenneth G. (A5051973791)
-2026-04-22 11:39:40,729 [INFO]   [26] Zhang, Fusuo (A5039326017)
-2026-04-22 11:39:41,284 [INFO]   [27] Damalas, Christos Asterios (A5017894818)
-2026-04-22 11:39:41,866 [INFO]   [28] Batjes, Niels H. (A5078952063)
-2026-04-22 11:39:42,430 [INFO]   [29] Fageria, Nanda Kumar (A5111844619)
-2026-04-22 11:39:43,025 [INFO]   [30] Minasny, Budiman B. (A5103745314)
-2026-04-22 11:39:43,550 [INFO]   [31] Paustian, Keith H. (A5060802686)
-2026-04-22 11:39:44,075 [INFO]   [32] Viscarra Rossel, Raphael A. (A5036835000)
-2026-04-22 11:39:44,625 [INFO]   [33] Spohn, Marie (A5015497931)
-2026-04-22 11:39:45,178 [INFO]   [34] Montanarella, Luca (A5034223128)
-2026-04-22 11:39:45,764 [INFO]   [35] Siddique, Kadambot H.m. (A5082109205)
-2026-04-22 11:39:46,408 [INFO]   [36] Bååth, Erland (A5063337030)
-2026-04-22 11:39:46,975 [INFO]   [37] Tittonell, Pablo Adrián (A5047824078)
-2026-04-22 11:39:47,659 [INFO]   [38] Kleber, Markus (A5068228931)
-2026-04-22 11:39:48,266 [INFO]   [39] Turner, Neil Clifford (A5086215052)
-2026-04-22 11:39:48,893 [INFO]   [40] El Bilali, Hamid (A5064481264)
-2026-04-22 11:39:49,441 [INFO]   [41] Sadras, Víctor Oscar (A5122488670)
-2026-04-22 11:39:50,036 [INFO]   [42] Herrero, Mario (A5013702236)
-2026-04-22 11:39:50,630 [INFO]   [43] Pereira, Luis S. (A5050544861)
-2026-04-22 11:39:51,326 [INFO]   [44] Robertson, G. Philip (A5049194901)
-2026-04-22 11:39:51,912 [INFO]   [45] Spokas, Kurt A. (A5066872480)
-2026-04-22 11:39:52,486 [INFO]   [46] Kirkham, Mary Beth (A5115846593)
-2026-04-22 11:39:53,098 [INFO]   [47] Laird, David A. (A5070712707)
-2026-04-22 11:39:53,698 [INFO]   [48] Pathak, Himanshu K. (A5072683777)
-2026-04-22 11:39:54,249 [INFO]   [49] Haynes, Richard John (A5057557248)
-2026-04-22 11:39:54,827 [INFO]   [50] Meena, Ram Swaroop (A5080095234)
-2026-04-22 11:39:55,421 [INFO]   ✓ 50 rows → authors.csv
-2026-04-22 11:39:55,422 [INFO] 
-[STEP 3] Fetching corresponding-author works (2018–2025) …
-2026-04-22 11:39:55,422 [INFO]   [ 1] Lal, Rattan A. (A5049890100)
-2026-04-22 11:39:57,470 [INFO]     Page 1: 200 works (200/380 total)
-2026-04-22 11:39:59,145 [INFO]     Page 2: 180 works (380/380 total)
-2026-04-22 11:39:59,730 [INFO]     Page 3: 0 works (380/380 total)
-2026-04-22 11:39:59,730 [INFO]     → 380 works retrieved
-2026-04-22 11:39:59,734 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:39:59,735 [INFO]   [ 2] KUZYAKOV, Yakov V. (A5062508940)
-2026-04-22 11:40:04,716 [INFO]     Page 1: 200 works (200/838 total)
-2026-04-22 11:40:07,296 [INFO]     Page 2: 200 works (400/838 total)
-2026-04-22 11:40:10,382 [INFO]     Page 3: 200 works (600/838 total)
-2026-04-22 11:40:12,284 [INFO]     Page 4: 200 works (800/838 total)
-2026-04-22 11:40:13,044 [INFO]     Page 5: 38 works (838/838 total)
-2026-04-22 11:40:13,622 [INFO]     Page 6: 0 works (838/838 total)
-2026-04-22 11:40:13,636 [INFO]     → 838 works retrieved
-2026-04-22 11:40:13,639 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:13,639 [INFO]   [ 3] Lehmann, Johannes C. (A5107909077)
-2026-04-22 11:40:14,443 [INFO]     Page 1: 11 works (11/11 total)
-2026-04-22 11:40:14,995 [INFO]     Page 2: 0 works (11/11 total)
-2026-04-22 11:40:15,036 [INFO]     → 11 works retrieved
-2026-04-22 11:40:15,040 [INFO]   [ 4] Jones, Davey Leonard (A5064381910)
-2026-04-22 11:40:17,177 [INFO]     Page 1: 200 works (200/524 total)
-2026-04-22 11:40:19,610 [INFO]     Page 2: 200 works (400/524 total)
-2026-04-22 11:40:21,254 [INFO]     Page 3: 124 works (524/524 total)
-2026-04-22 11:40:21,847 [INFO]     Page 4: 0 works (524/524 total)
-2026-04-22 11:40:21,848 [INFO]     → 524 works retrieved
-2026-04-22 11:40:21,851 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:21,851 [INFO]   [ 5] Cakmak, Ismail (A5065205022)
-2026-04-22 11:40:23,452 [INFO]     Page 1: 91 works (91/91 total)
-2026-04-22 11:40:24,031 [INFO]     Page 2: 0 works (91/91 total)
-2026-04-22 11:40:24,053 [INFO]     → 91 works retrieved
-2026-04-22 11:40:24,058 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:24,058 [INFO]   [ 6] Kógel-Knabner, Ingrid (A5103365530)
-2026-04-22 11:40:24,619 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:24,624 [INFO]     → 0 works retrieved
-2026-04-22 11:40:24,624 [INFO]   [ 7] Schimel, Joshua P. (A5109381818)
-2026-04-22 11:40:25,274 [INFO]     Page 1: 3 works (3/3 total)
-2026-04-22 11:40:25,905 [INFO]     Page 2: 0 works (3/3 total)
-2026-04-22 11:40:25,905 [INFO]     → 3 works retrieved
-2026-04-22 11:40:25,907 [INFO]   [ 8] Blanco-Canqui, Humberto (A5036338247)
-2026-04-22 11:40:27,328 [INFO]     Page 1: 91 works (91/91 total)
-2026-04-22 11:40:28,036 [INFO]     Page 2: 0 works (91/91 total)
-2026-04-22 11:40:28,037 [INFO]     → 91 works retrieved
-2026-04-22 11:40:28,063 [INFO]   [ 9] Six, Johan W. (A5106037822)
-2026-04-22 11:40:28,804 [INFO]     Page 1: 8 works (8/8 total)
-2026-04-22 11:40:29,364 [INFO]     Page 2: 0 works (8/8 total)
-2026-04-22 11:40:29,369 [INFO]     → 8 works retrieved
-2026-04-22 11:40:29,369 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:29,369 [INFO]   [10] Marschner, Petra (A5063620162)
-2026-04-22 11:40:30,503 [INFO]     Page 1: 79 works (79/79 total)
-2026-04-22 11:40:31,174 [INFO]     Page 2: 0 works (79/79 total)
-2026-04-22 11:40:31,175 [INFO]     → 79 works retrieved
-2026-04-22 11:40:31,175 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:31,176 [INFO]   [11] Liang, Chao (A5077414930)
-2026-04-22 11:40:33,608 [INFO]     Page 1: 200 works (200/224 total)
-2026-04-22 11:40:34,417 [INFO]     Page 2: 24 works (224/224 total)
-2026-04-22 11:40:34,986 [INFO]     Page 3: 0 works (224/224 total)
-2026-04-22 11:40:34,988 [INFO]     → 224 works retrieved
-2026-04-22 11:40:34,993 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:34,993 [INFO]   [12] Barbedo, Jayme G.A. (A5021890642)
-2026-04-22 11:40:35,565 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:35,574 [INFO]     → 0 works retrieved
-2026-04-22 11:40:35,574 [INFO]   [13] Thornton, Philip K. (A5044287766)
-2026-04-22 11:40:38,315 [INFO]     Page 1: 171 works (171/171 total)
-2026-04-22 11:40:38,885 [INFO]     Page 2: 0 works (171/171 total)
-2026-04-22 11:40:38,886 [INFO]     → 171 works retrieved
-2026-04-22 11:40:38,892 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:38,892 [INFO]   [14] Etesami, Hassan (A5124185567)
-2026-04-22 11:40:39,458 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:39,465 [INFO]     → 0 works retrieved
-2026-04-22 11:40:39,466 [INFO]   [15] Brookes, Philip Charles (A5109976669)
-2026-04-22 11:40:40,307 [INFO]     Page 1: 12 works (12/12 total)
-2026-04-22 11:40:40,859 [INFO]     Page 2: 0 works (12/12 total)
-2026-04-22 11:40:40,859 [INFO]     → 12 works retrieved
-2026-04-22 11:40:40,863 [INFO]   [16] Giller, Ken E. (A5077023973)
-2026-04-22 11:40:43,043 [INFO]     Page 1: 198 works (198/198 total)
-2026-04-22 11:40:43,625 [INFO]     Page 2: 0 works (198/198 total)
-2026-04-22 11:40:43,627 [INFO]     → 198 works retrieved
-2026-04-22 11:40:43,635 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:43,636 [INFO]   [17] Joergensen, Rainer Georg (A5113464690)
-2026-04-22 11:40:44,191 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:44,199 [INFO]     → 0 works retrieved
-2026-04-22 11:40:44,199 [INFO]   [18] McBratney, Alex B. (A5123669076)
-2026-04-22 11:40:44,783 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:44,783 [INFO]     → 0 works retrieved
-2026-04-22 11:40:44,784 [INFO]   [19] Rengel, Z. (A5012706461)
-2026-04-22 11:40:46,700 [INFO]     Page 1: 188 works (188/188 total)
-2026-04-22 11:40:47,259 [INFO]     Page 2: 0 works (188/188 total)
-2026-04-22 11:40:47,259 [INFO]     → 188 works retrieved
-2026-04-22 11:40:47,260 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:47,260 [INFO]   [20] Chauhan, Bhagirath Singh (A5077353489)
-2026-04-22 11:40:49,523 [INFO]     Page 1: 200 works (200/265 total)
-2026-04-22 11:40:50,782 [INFO]     Page 2: 65 works (265/265 total)
-2026-04-22 11:40:51,372 [INFO]     Page 3: 0 works (265/265 total)
-2026-04-22 11:40:51,379 [INFO]     → 265 works retrieved
-2026-04-22 11:40:51,387 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:51,396 [INFO]   [21] Frey, Serita D. (A5022401188)
-2026-04-22 11:40:53,495 [INFO]     Page 1: 143 works (143/143 total)
-2026-04-22 11:40:54,072 [INFO]     Page 2: 0 works (143/143 total)
-2026-04-22 11:40:54,079 [INFO]     → 143 works retrieved
-2026-04-22 11:40:54,086 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:54,087 [INFO]   [22] Klerkx, Laurens W.A. (A5029868613)
-2026-04-22 11:40:57,250 [INFO]     Page 1: 142 works (142/142 total)
-2026-04-22 11:40:57,833 [INFO]     Page 2: 0 works (142/142 total)
-2026-04-22 11:40:57,843 [INFO]     → 142 works retrieved
-2026-04-22 11:40:57,847 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:40:57,848 [INFO]   [23] Bremner, John M. (A5009643988)
-2026-04-22 11:40:58,420 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:40:58,424 [INFO]     → 0 works retrieved
-2026-04-22 11:40:58,425 [INFO]   [24] Franzluebbers, Alan J. (A5038719083)
-2026-04-22 11:40:59,959 [INFO]     Page 1: 108 works (108/108 total)
-2026-04-22 11:41:00,536 [INFO]     Page 2: 0 works (108/108 total)
-2026-04-22 11:41:00,536 [INFO]     → 108 works retrieved
-2026-04-22 11:41:00,541 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:00,542 [INFO]   [25] Cassman, Kenneth G. (A5051973791)
-2026-04-22 11:41:01,986 [INFO]     Page 1: 38 works (38/38 total)
-2026-04-22 11:41:02,556 [INFO]     Page 2: 0 works (38/38 total)
-2026-04-22 11:41:02,560 [INFO]     → 38 works retrieved
-2026-04-22 11:41:02,564 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:02,564 [INFO]   [26] Zhang, Fusuo (A5039326017)
-2026-04-22 11:41:03,136 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:41:03,137 [INFO]     → 0 works retrieved
-2026-04-22 11:41:03,138 [INFO]   [27] Damalas, Christos Asterios (A5017894818)
-2026-04-22 11:41:05,449 [INFO]     Page 1: 125 works (125/125 total)
-2026-04-22 11:41:06,029 [INFO]     Page 2: 0 works (125/125 total)
-2026-04-22 11:41:06,029 [INFO]     → 125 works retrieved
-2026-04-22 11:41:06,040 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:06,041 [INFO]   [28] Batjes, Niels H. (A5078952063)
-2026-04-22 11:41:07,335 [INFO]     Page 1: 42 works (42/42 total)
-2026-04-22 11:41:07,936 [INFO]     Page 2: 0 works (42/42 total)
-2026-04-22 11:41:07,940 [INFO]     → 42 works retrieved
-2026-04-22 11:41:07,947 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:07,948 [INFO]   [29] Fageria, Nanda Kumar (A5111844619)
-2026-04-22 11:41:08,619 [INFO]     Page 1: 3 works (3/3 total)
-2026-04-22 11:41:09,318 [INFO]     Page 2: 0 works (3/3 total)
-2026-04-22 11:41:09,320 [INFO]     → 3 works retrieved
-2026-04-22 11:41:09,322 [INFO]   [30] Minasny, Budiman B. (A5103745314)
-2026-04-22 11:41:09,865 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:41:09,866 [INFO]     → 0 works retrieved
-2026-04-22 11:41:09,866 [INFO]   [31] Paustian, Keith H. (A5060802686)
-2026-04-22 11:41:10,486 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:11,056 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:11,056 [INFO]     → 1 works retrieved
-2026-04-22 11:41:11,057 [INFO]   [32] Viscarra Rossel, Raphael A. (A5036835000)
-2026-04-22 11:41:11,656 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:41:11,656 [INFO]     → 0 works retrieved
-2026-04-22 11:41:11,656 [INFO]   [33] Spohn, Marie (A5015497931)
-2026-04-22 11:41:13,074 [INFO]     Page 1: 107 works (107/107 total)
-2026-04-22 11:41:13,699 [INFO]     Page 2: 0 works (107/107 total)
-2026-04-22 11:41:13,700 [INFO]     → 107 works retrieved
-2026-04-22 11:41:13,722 [INFO]   [34] Montanarella, Luca (A5034223128)
-2026-04-22 11:41:14,291 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:41:14,296 [INFO]     → 0 works retrieved
-2026-04-22 11:41:14,296 [INFO]   [35] Siddique, Kadambot H.m. (A5082109205)
-2026-04-22 11:41:16,983 [INFO]     Page 1: 200 works (200/960 total)
-2026-04-22 11:41:19,200 [INFO]     Page 2: 200 works (400/960 total)
-2026-04-22 11:41:22,999 [INFO]     Page 3: 200 works (600/960 total)
-2026-04-22 11:41:25,331 [INFO]     Page 4: 200 works (800/960 total)
-2026-04-22 11:41:28,637 [INFO]     Page 5: 160 works (960/960 total)
-2026-04-22 11:41:29,227 [INFO]     Page 6: 0 works (960/960 total)
-2026-04-22 11:41:29,227 [INFO]     → 960 works retrieved
-2026-04-22 11:41:29,229 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:29,230 [INFO]   [36] Bååth, Erland (A5063337030)
-2026-04-22 11:41:30,088 [INFO]     Page 1: 28 works (28/28 total)
-2026-04-22 11:41:30,632 [INFO]     Page 2: 0 works (28/28 total)
-2026-04-22 11:41:30,673 [INFO]     → 28 works retrieved
-2026-04-22 11:41:30,677 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:30,678 [INFO]   [37] Tittonell, Pablo Adrián (A5047824078)
-2026-04-22 11:41:32,448 [INFO]     Page 1: 144 works (144/144 total)
-2026-04-22 11:41:33,022 [INFO]     Page 2: 0 works (144/144 total)
-2026-04-22 11:41:33,024 [INFO]     → 144 works retrieved
-2026-04-22 11:41:33,046 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:33,046 [INFO]   [38] Kleber, Markus (A5068228931)
-2026-04-22 11:41:33,724 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:34,292 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:34,300 [INFO]     → 1 works retrieved
-2026-04-22 11:41:34,301 [INFO]   [39] Turner, Neil Clifford (A5086215052)
-2026-04-22 11:41:35,206 [INFO]     Page 1: 42 works (42/42 total)
-2026-04-22 11:41:35,823 [INFO]     Page 2: 0 works (42/42 total)
-2026-04-22 11:41:35,824 [INFO]     → 42 works retrieved
-2026-04-22 11:41:35,828 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:35,829 [INFO]   [40] El Bilali, Hamid (A5064481264)
-2026-04-22 11:41:36,442 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:36,992 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:36,994 [INFO]     → 1 works retrieved
-2026-04-22 11:41:36,995 [INFO]   [41] Sadras, Víctor Oscar (A5122488670)
-2026-04-22 11:41:37,556 [INFO]     Page 1: 0 works (0/0 total)
-2026-04-22 11:41:37,557 [INFO]     → 0 works retrieved
-2026-04-22 11:41:37,557 [INFO]   [42] Herrero, Mario (A5013702236)
-2026-04-22 11:41:39,690 [INFO]     Page 1: 200 works (200/210 total)
-2026-04-22 11:41:40,421 [INFO]     Page 2: 10 works (210/210 total)
-2026-04-22 11:41:40,987 [INFO]     Page 3: 0 works (210/210 total)
-2026-04-22 11:41:40,988 [INFO]     → 210 works retrieved
-2026-04-22 11:41:40,992 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:40,992 [INFO]   [43] Pereira, Luis S. (A5050544861)
-2026-04-22 11:41:42,440 [INFO]     Page 1: 119 works (119/119 total)
-2026-04-22 11:41:43,020 [INFO]     Page 2: 0 works (119/119 total)
-2026-04-22 11:41:43,032 [INFO]     → 119 works retrieved
-2026-04-22 11:41:43,032 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:43,033 [INFO]   [44] Robertson, G. Philip (A5049194901)
-2026-04-22 11:41:45,453 [INFO]     Page 1: 152 works (152/152 total)
-2026-04-22 11:41:46,002 [INFO]     Page 2: 0 works (152/152 total)
-2026-04-22 11:41:46,006 [INFO]     → 152 works retrieved
-2026-04-22 11:41:46,030 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:46,030 [INFO]   [45] Spokas, Kurt A. (A5066872480)
-2026-04-22 11:41:46,660 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:47,231 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:47,238 [INFO]     → 1 works retrieved
-2026-04-22 11:41:47,239 [INFO]   [46] Kirkham, Mary Beth (A5115846593)
-2026-04-22 11:41:47,856 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:48,432 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:48,433 [INFO]     → 1 works retrieved
-2026-04-22 11:41:48,433 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:48,434 [INFO]   [47] Laird, David A. (A5070712707)
-2026-04-22 11:41:49,040 [INFO]     Page 1: 2 works (2/2 total)
-2026-04-22 11:41:49,643 [INFO]     Page 2: 0 works (2/2 total)
-2026-04-22 11:41:49,644 [INFO]     → 2 works retrieved
-2026-04-22 11:41:49,645 [INFO]   [48] Pathak, Himanshu K. (A5072683777)
-2026-04-22 11:41:50,225 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:50,786 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:50,787 [INFO]     → 1 works retrieved
-2026-04-22 11:41:50,788 [INFO]   [49] Haynes, Richard John (A5057557248)
-2026-04-22 11:41:51,368 [INFO]     Page 1: 1 works (1/1 total)
-2026-04-22 11:41:51,934 [INFO]     Page 2: 0 works (1/1 total)
-2026-04-22 11:41:51,934 [INFO]     → 1 works retrieved
-2026-04-22 11:41:51,935 [INFO]   [50] Meena, Ram Swaroop (A5080095234)
-2026-04-22 11:41:53,699 [INFO]     Page 1: 200 works (200/282 total)
-2026-04-22 11:41:55,853 [INFO]     Page 2: 82 works (282/282 total)
-2026-04-22 11:41:56,413 [INFO]     Page 3: 0 works (282/282 total)
-2026-04-22 11:41:56,414 [INFO]     → 282 works retrieved
-2026-04-22 11:41:56,421 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
-2026-04-22 11:41:56,631 [INFO]   ✓ 787 rows → works.csv
-2026-04-22 11:41:56,631 [INFO]   Total works : 787
-2026-04-22 11:41:56,632 [INFO]   Unique sources found: 237
-2026-04-22 11:41:56,632 [INFO] 
-[STEP 4] Fetching source/journal metadata (237 unique sources) …
-2026-04-22 11:41:56,633 [INFO]   [1/237] S1010394304
-2026-04-22 11:41:57,210 [INFO]   [2/237] S10134376
-2026-04-22 11:41:57,804 [INFO]   [3/237] S104292366
-2026-04-22 11:41:58,391 [INFO]   [4/237] S104641133
-2026-04-22 11:41:58,975 [INFO]   [5/237] S106909380
-2026-04-22 11:41:59,572 [INFO]   [6/237] S111155417
-2026-04-22 11:42:00,168 [INFO]   [7/237] S114728194
-2026-04-22 11:42:00,741 [INFO]   [8/237] S11732831
-2026-04-22 11:42:01,298 [INFO]   [9/237] S117431132
-2026-04-22 11:42:01,892 [INFO]   [10/237] S11781297
-2026-04-22 11:42:02,493 [INFO]   [11/237] S119405978
-2026-04-22 11:42:03,130 [INFO]   [12/237] S121608518
-2026-04-22 11:42:03,735 [INFO]   [13/237] S121647140
-2026-04-22 11:42:04,306 [INFO]   [14/237] S12429487
-2026-04-22 11:42:04,869 [INFO]   [15/237] S124372222
-2026-04-22 11:42:05,459 [INFO]   [16/237] S125754415
-2026-04-22 11:42:06,038 [INFO]   [17/237] S126013225
-2026-04-22 11:42:06,599 [INFO]   [18/237] S126894729
-2026-04-22 11:42:07,186 [INFO]   [19/237] S127668553
-2026-04-22 11:42:07,793 [INFO]   [20/237] S129324922
-2026-04-22 11:42:08,399 [INFO]   [21/237] S129665955
-2026-04-22 11:42:08,971 [INFO]   [22/237] S129843401
-2026-04-22 11:42:09,548 [INFO]   [23/237] S130750583
-2026-04-22 11:42:10,166 [INFO]   [24/237] S13342628
-2026-04-22 11:42:10,756 [INFO]   [25/237] S134185576
-2026-04-22 11:42:11,364 [INFO]   [26/237] S13442111
-2026-04-22 11:42:11,929 [INFO]   [27/237] S134644764
-2026-04-22 11:42:12,492 [INFO]   [28/237] S13479253
-2026-04-22 11:42:13,057 [INFO]   [29/237] S135204980
-2026-04-22 11:42:13,603 [INFO]   [30/237] S137773608
-2026-04-22 11:42:14,191 [INFO]   [31/237] S139338987
-2026-04-22 11:42:14,758 [INFO]   [32/237] S139950591
-2026-04-22 11:42:15,328 [INFO]   [33/237] S14046259
-2026-04-22 11:42:15,900 [INFO]   [34/237] S145476921
-2026-04-22 11:42:16,475 [INFO]   [35/237] S148071443
-2026-04-22 11:42:17,028 [INFO]   [36/237] S148307540
-2026-04-22 11:42:17,583 [INFO]   [37/237] S151808461
-2026-04-22 11:42:18,139 [INFO]   [38/237] S153614898
-2026-04-22 11:42:18,711 [INFO]   [39/237] S155209994
-2026-04-22 11:42:19,265 [INFO]   [40/237] S156652029
-2026-04-22 11:42:19,826 [INFO]   [41/237] S157560195
-2026-04-22 11:42:20,376 [INFO]   [42/237] S157804282
-2026-04-22 11:42:20,943 [INFO]   [43/237] S159568494
-2026-04-22 11:42:21,515 [INFO]   [44/237] S159786734
-2026-04-22 11:42:22,068 [INFO]   [45/237] S161676133
-2026-04-22 11:42:22,646 [INFO]   [46/237] S164183727
-2026-04-22 11:42:23,206 [INFO]   [47/237] S165675472
-2026-04-22 11:42:23,761 [INFO]   [48/237] S1666925
-2026-04-22 11:42:24,324 [INFO]   [49/237] S166870025
-2026-04-22 11:42:24,881 [INFO]   [50/237] S167743172
-2026-04-22 11:42:25,454 [INFO]   [51/237] S167829764
-2026-04-22 11:42:26,036 [INFO]   [52/237] S169694011
-2026-04-22 11:42:26,604 [INFO]   [53/237] S170036492
-2026-04-22 11:42:27,155 [INFO]   [54/237] S170334236
-2026-04-22 11:42:27,700 [INFO]   [55/237] S171172751
-2026-04-22 11:42:28,278 [INFO]   [56/237] S171918450
-2026-04-22 11:42:28,850 [INFO]   [57/237] S17425584
-2026-04-22 11:42:29,438 [INFO]   [58/237] S174303711
-2026-04-22 11:42:30,019 [INFO]   [59/237] S174382924
-2026-04-22 11:42:30,592 [INFO]   [60/237] S176558078
-2026-04-22 11:42:31,161 [INFO]   [61/237] S17729819
-2026-04-22 11:42:31,732 [INFO]   [62/237] S178362034
-2026-04-22 11:42:32,307 [INFO]   [63/237] S178776955
-2026-04-22 11:42:32,860 [INFO]   [64/237] S182625382
-2026-04-22 11:42:33,413 [INFO]   [65/237] S183652945
-2026-04-22 11:42:33,967 [INFO]   [66/237] S18481763
-2026-04-22 11:42:34,521 [INFO]   [67/237] S18483251
-2026-04-22 11:42:35,084 [INFO]   [68/237] S185046733
-2026-04-22 11:42:35,652 [INFO]   [69/237] S185297315
-2026-04-22 11:42:36,240 [INFO]   [70/237] S192395394
-2026-04-22 11:42:36,822 [INFO]   [71/237] S193354800
-2026-04-22 11:42:37,375 [INFO]   [72/237] S193620188
-2026-04-22 11:42:37,928 [INFO]   [73/237] S194154261
-2026-04-22 11:42:38,525 [INFO]   [74/237] S194631498
-2026-04-22 11:42:39,109 [INFO]   [75/237] S195102351
-2026-04-22 11:42:39,739 [INFO]   [76/237] S195255895
-2026-04-22 11:42:40,290 [INFO]   [77/237] S196734849
-2026-04-22 11:42:40,843 [INFO]   [78/237] S201386569
-2026-04-22 11:42:41,432 [INFO]   [79/237] S201473135
-2026-04-22 11:42:41,991 [INFO]   [80/237] S201530359
-2026-04-22 11:42:42,575 [INFO]   [81/237] S202381698
-2026-04-22 11:42:43,156 [INFO]   [82/237] S202986090
-2026-04-22 11:42:43,753 [INFO]   [83/237] S203465130
-2026-04-22 11:42:44,354 [INFO]   [84/237] S204002359
-2026-04-22 11:42:45,009 [INFO]   [85/237] S204799461
-2026-04-22 11:42:45,589 [INFO]   [86/237] S204847658
-2026-04-22 11:42:46,163 [INFO]   [87/237] S205679754
-2026-04-22 11:42:46,717 [INFO]   [88/237] S207083915
-2026-04-22 11:42:47,271 [INFO]   [89/237] S207341031
-2026-04-22 11:42:47,848 [INFO]   [90/237] S2484704948
-2026-04-22 11:42:48,436 [INFO]   [91/237] S2493613807
-2026-04-22 11:42:49,020 [INFO]   [92/237] S2497724177
-2026-04-22 11:42:49,632 [INFO]   [93/237] S2497912916
-2026-04-22 11:42:50,220 [INFO]   [94/237] S2502518375
-2026-04-22 11:42:50,790 [INFO]   [95/237] S2502627819
-2026-04-22 11:42:51,387 [INFO]   [96/237] S25612858
-2026-04-22 11:42:51,944 [INFO]   [97/237] S2595292759
-2026-04-22 11:42:52,525 [INFO]   [98/237] S2596204836
-2026-04-22 11:42:53,103 [INFO]   [99/237] S2607323502
-2026-04-22 11:42:53,743 [INFO]   [100/237] S2736600276
-2026-04-22 11:42:54,314 [INFO]   [101/237] S2737313858
-2026-04-22 11:42:54,901 [INFO]   [102/237] S2737427234
-2026-04-22 11:42:55,484 [INFO]   [103/237] S2738397068
-2026-04-22 11:42:56,111 [INFO]   [104/237] S2738733073
-2026-04-22 11:42:56,726 [INFO]   [105/237] S2738806978
-2026-04-22 11:42:57,341 [INFO]   [106/237] S2738977497
-2026-04-22 11:42:57,908 [INFO]   [107/237] S2764388848
-2026-04-22 11:42:58,482 [INFO]   [108/237] S2764403354
-2026-04-22 11:42:59,038 [INFO]   [109/237] S2764478277
-2026-04-22 11:42:59,602 [INFO]   [110/237] S2764561087
-2026-04-22 11:43:00,163 [INFO]   [111/237] S2764720322
-2026-04-22 11:43:00,760 [INFO]   [112/237] S2764733428
-2026-04-22 11:43:01,365 [INFO]   [113/237] S2764749963
-2026-04-22 11:43:01,938 [INFO]   [114/237] S2764782578
-2026-04-22 11:43:02,510 [INFO]   [115/237] S2764874817
-2026-04-22 11:43:03,050 [INFO]   [116/237] S2764884935
-2026-04-22 11:43:03,635 [INFO]   [117/237] S2764926557
-2026-04-22 11:43:04,187 [INFO]   [118/237] S2765061010
-2026-04-22 11:43:04,763 [INFO]   [119/237] S28036099
-2026-04-22 11:43:05,315 [INFO]   [120/237] S2898182138
-2026-04-22 11:43:05,876 [INFO]   [121/237] S2898239524
-2026-04-22 11:43:06,439 [INFO]   [122/237] S2898305631
-2026-04-22 11:43:07,014 [INFO]   [123/237] S2898510056
-2026-04-22 11:43:07,571 [INFO]   [124/237] S316438
-2026-04-22 11:43:08,142 [INFO]   [125/237] S31777576
-2026-04-22 11:43:08,697 [INFO]   [126/237] S32610980
-2026-04-22 11:43:09,244 [INFO]   [127/237] S33382538
-2026-04-22 11:43:09,817 [INFO]   [128/237] S35071406
-2026-04-22 11:43:10,383 [INFO]   [129/237] S35917800
-2026-04-22 11:43:10,965 [INFO]   [130/237] S3880285
-2026-04-22 11:43:11,580 [INFO]   [131/237] S4210172589
-2026-04-22 11:43:12,158 [INFO]   [132/237] S4210173366
-2026-04-22 11:43:12,718 [INFO]   [133/237] S4210176965
-2026-04-22 11:43:13,271 [INFO]   [134/237] S4210178346
-2026-04-22 11:43:13,837 [INFO]   [135/237] S4210181637
-2026-04-22 11:43:14,408 [INFO]   [136/237] S4210185699
-2026-04-22 11:43:14,979 [INFO]   [137/237] S4210186733
-2026-04-22 11:43:15,571 [INFO]   [138/237] S4210188283
-2026-04-22 11:43:16,129 [INFO]   [139/237] S4210190384
-2026-04-22 11:43:16,696 [INFO]   [140/237] S4210191196
-2026-04-22 11:43:17,274 [INFO]   [141/237] S4210191406
-2026-04-22 11:43:17,824 [INFO]   [142/237] S4210194378
-2026-04-22 11:43:18,375 [INFO]   [143/237] S4210194758
-2026-04-22 11:43:18,928 [INFO]   [144/237] S4210197414
-2026-04-22 11:43:19,521 [INFO]   [145/237] S4210197466
-2026-04-22 11:43:20,073 [INFO]   [146/237] S4210201176
-2026-04-22 11:43:20,630 [INFO]   [147/237] S4210201231
-2026-04-22 11:43:21,228 [INFO]   [148/237] S4210201734
-2026-04-22 11:43:21,829 [INFO]   [149/237] S4210202585
-2026-04-22 11:43:22,604 [INFO]   [150/237] S4210206544
-2026-04-22 11:43:23,308 [INFO]   [151/237] S4210207988
-2026-04-22 11:43:23,873 [INFO]   [152/237] S4210209888
-2026-04-22 11:43:24,443 [INFO]   [153/237] S4210212157
-2026-04-22 11:43:25,013 [INFO]   [154/237] S4210213828
-2026-04-22 11:43:25,610 [INFO]   [155/237] S4210215907
-2026-04-22 11:43:26,182 [INFO]   [156/237] S4210217755
-2026-04-22 11:43:26,773 [INFO]   [157/237] S4210220257
-2026-04-22 11:43:27,342 [INFO]   [158/237] S4210221880
-2026-04-22 11:43:27,903 [INFO]   [159/237] S4210223134
-2026-04-22 11:43:28,484 [INFO]   [160/237] S4210225776
-2026-04-22 11:43:29,056 [INFO]   [161/237] S4210229313
-2026-04-22 11:43:29,621 [INFO]   [162/237] S4210230202
-2026-04-22 11:43:30,190 [INFO]   [163/237] S4210238099
-2026-04-22 11:43:30,784 [INFO]   [164/237] S4210239277
-2026-04-22 11:43:31,365 [INFO]   [165/237] S42294715
-2026-04-22 11:43:31,971 [INFO]   [166/237] S4306400386
-2026-04-22 11:43:32,555 [INFO]   [167/237] S4306400562
-2026-04-22 11:43:33,154 [INFO]   [168/237] S4306401616
-2026-04-22 11:43:33,733 [INFO]   [169/237] S4306402512
-2026-04-22 11:43:34,303 [INFO]   [170/237] S4306462913
-2026-04-22 11:43:34,876 [INFO]   [171/237] S4306463082
-2026-04-22 11:43:35,450 [INFO]   [172/237] S4306463230
-2026-04-22 11:43:36,026 [INFO]   [173/237] S4306501033
-2026-04-22 11:43:36,600 [INFO]   [174/237] S4306501062
-2026-04-22 11:43:37,182 [INFO]   [175/237] S4306508950
-2026-04-22 11:43:37,771 [INFO]   [176/237] S4306508951
-2026-04-22 11:43:38,358 [INFO]   [177/237] S4306511589
-2026-04-22 11:43:38,925 [INFO]   [178/237] S4306525896
-2026-04-22 11:43:39,501 [INFO]   [179/237] S4363604272
-2026-04-22 11:43:40,073 [INFO]   [180/237] S4377196282
-2026-04-22 11:43:40,654 [INFO]   [181/237] S4377196362
-2026-04-22 11:43:41,260 [INFO]   [182/237] S4387278920
-2026-04-22 11:43:41,861 [INFO]   [183/237] S4393918464
-2026-04-22 11:43:42,437 [INFO]   [184/237] S44098145
-2026-04-22 11:43:43,010 [INFO]   [185/237] S44455300
-2026-04-22 11:43:43,605 [INFO]   [186/237] S44859635
-2026-04-22 11:43:44,282 [INFO]   [187/237] S46982553
-2026-04-22 11:43:44,845 [INFO]   [188/237] S48277251
-2026-04-22 11:43:45,398 [INFO]   [189/237] S49861241
-2026-04-22 11:43:45,986 [INFO]   [190/237] S50537447
-2026-04-22 11:43:46,612 [INFO]   [191/237] S52566953
-2026-04-22 11:43:47,193 [INFO]   [192/237] S53118794
-2026-04-22 11:43:47,772 [INFO]   [193/237] S53942123
-2026-04-22 11:43:48,345 [INFO]   [194/237] S5407042887
-2026-04-22 11:43:48,926 [INFO]   [195/237] S56137335
-2026-04-22 11:43:49,508 [INFO]   [196/237] S58319264
-2026-04-22 11:43:50,082 [INFO]   [197/237] S5832799
-2026-04-22 11:43:50,644 [INFO]   [198/237] S58516903
-2026-04-22 11:43:51,192 [INFO]   [199/237] S58631098
-2026-04-22 11:43:51,772 [INFO]   [200/237] S59755854
-2026-04-22 11:43:52,356 [INFO]   [201/237] S60406085
-2026-04-22 11:43:52,916 [INFO]   [202/237] S62391475
-2026-04-22 11:43:53,495 [INFO]   [203/237] S63571384
-2026-04-22 11:43:54,123 [INFO]   [204/237] S64187185
-2026-04-22 11:43:54,711 [INFO]   [205/237] S6444338
-2026-04-22 11:43:55,288 [INFO]   [206/237] S67393510
-2026-04-22 11:43:55,859 [INFO]   [207/237] S68497187
-2026-04-22 11:43:56,476 [INFO]   [208/237] S71324801
-2026-04-22 11:43:57,064 [INFO]   [209/237] S71879176
-2026-04-22 11:43:57,612 [INFO]   [210/237] S72772346
-2026-04-22 11:43:58,163 [INFO]   [211/237] S73449225
-2026-04-22 11:43:58,770 [INFO]   [212/237] S73708723
-2026-04-22 11:43:59,330 [INFO]   [213/237] S74357050
-2026-04-22 11:43:59,893 [INFO]   [214/237] S74970393
-2026-04-22 11:44:00,493 [INFO]   [215/237] S75830442
-2026-04-22 11:44:01,059 [INFO]   [216/237] S78512408
-2026-04-22 11:44:01,622 [INFO]   [217/237] S78839210
-2026-04-22 11:44:02,178 [INFO]   [218/237] S80485027
-2026-04-22 11:44:02,828 [INFO]   [219/237] S81083566
-2026-04-22 11:44:03,404 [INFO]   [220/237] S815301
-2026-04-22 11:44:03,993 [INFO]   [221/237] S82712235
-2026-04-22 11:44:04,582 [INFO]   [222/237] S83499872
-2026-04-22 11:44:05,152 [INFO]   [223/237] S86852077
-2026-04-22 11:44:05,740 [INFO]   [224/237] S87561820
-2026-04-22 11:44:06,314 [INFO]   [225/237] S87697115
-2026-04-22 11:44:06,872 [INFO]   [226/237] S88153332
-2026-04-22 11:44:07,488 [INFO]   [227/237] S91660768
-2026-04-22 11:44:08,070 [INFO]   [228/237] S93764904
-2026-04-22 11:44:08,639 [INFO]   [229/237] S95823145
-2026-04-22 11:44:09,203 [INFO]   [230/237] S96226823
-2026-04-22 11:44:09,787 [INFO]   [231/237] S96685181
-2026-04-22 11:44:10,373 [INFO]   [232/237] S9731383
-2026-04-22 11:44:10,935 [INFO]   [233/237] S97758720
-2026-04-22 11:44:11,504 [INFO]   [234/237] S98430239
-2026-04-22 11:44:12,090 [INFO]   [235/237] S99352657
-2026-04-22 11:44:12,657 [INFO]   [236/237] S99756463
-2026-04-22 11:44:13,230 [INFO]   [237/237] S99909709
-2026-04-22 11:44:13,847 [INFO]   ✓ 237 rows → sources.csv
-2026-04-22 11:44:13,848 [INFO] 
-[STEP 5] Writing field reference …
-2026-04-22 11:44:13,850 [INFO]   ✓ 139 field definitions → field_reference.csv
-2026-04-22 11:44:13,850 [INFO] 
-======================================================================
-2026-04-22 11:44:13,850 [INFO] COLLECTION COMPLETE
-2026-04-22 11:44:13,851 [INFO]   authors.csv      : 50 rows
-2026-04-22 11:44:13,851 [INFO]   works.csv        : 787 rows  (corresponding author, 2018–2025)
-2026-04-22 11:44:13,851 [INFO]   sources.csv      : 237 rows
-2026-04-22 11:44:13,851 [INFO]   field_reference  : documented
-2026-04-22 11:44:13,852 [INFO]   collection.log   : full run log
-2026-04-22 11:44:13,852 [INFO] ======================================================================
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,920 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,921 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,922 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,923 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,924 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,925 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,926 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,927 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,928 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,929 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,930 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,931 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,932 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,933 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,934 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,935 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,936 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/authors.csv
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/authors.csv
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/works.csv
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/works.csv
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/sources.csv
+2026-04-29 14:40:25,937 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/sources.csv
+2026-04-29 14:40:25,938 [INFO] Total works retrieved: 0
+2026-04-29 14:40:25,938 [INFO] Total works retrieved: 0
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,135 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,136 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,137 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,138 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,139 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,140 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,141 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,141 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,141 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,141 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,142 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,143 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,144 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,145 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,146 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,147 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,148 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,149 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,150 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,151 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,152 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,153 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,154 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,155 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/authors.csv
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/authors.csv
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/works.csv
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/works.csv
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/sources.csv
+2026-04-29 14:41:43,156 [WARNING] No rows to write → /home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output/sources.csv
+2026-04-29 14:41:43,157 [INFO] Total works retrieved: 0
+2026-04-29 14:41:43,157 [INFO] Total works retrieved: 0
+2026-04-29 14:43:06,259 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,259 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,260 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,261 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,262 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:06,263 [WARNING] Row None has no openalex_id — skipping.
+2026-04-29 14:43:33,737 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:33,737 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:38,503 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:38,503 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:43,201 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:43,201 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:47,883 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:47,883 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:51,690 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:51,690 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:52,558 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:52,558 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:53,722 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:53,722 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:56,182 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:56,182 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:56,826 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:56,826 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:58,255 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:43:58,255 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:02,011 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:02,011 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:02,579 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:02,579 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:03,722 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:03,722 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:04,521 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:04,521 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:05,126 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:05,126 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:08,681 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:08,681 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:11,588 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:11,588 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:12,198 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:12,198 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:13,223 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:13,223 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:14,167 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:14,167 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:15,047 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:15,047 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:23,673 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:23,673 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:26,076 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:26,076 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:27,357 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:27,357 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:31,005 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:31,005 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:31,538 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:31,538 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:33,314 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:33,314 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:35,277 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:35,277 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:37,659 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:37,659 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:38,732 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:38,732 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:40,144 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:40,144 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:41,424 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:41,424 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:42,900 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:42,900 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:44,182 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:44,182 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:45,700 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:45,700 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:46,756 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:46,756 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:47,491 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:47,491 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:48,335 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:48,335 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:49,687 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:49,687 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:51,582 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:51,582 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:52,379 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:52,379 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:53,480 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:53,480 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:55,418 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:55,418 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:56,786 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:56,786 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:57,564 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:57,564 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:58,204 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:44:58,204 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:00,299 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:00,299 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:01,476 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:01,476 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:03,219 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:03,219 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:04,851 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:04,851 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:06,985 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:06,985 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:08,471 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:08,471 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:09,118 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:09,118 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:10,346 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:10,346 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:11,430 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:11,430 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:12,407 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:12,407 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:13,457 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:13,457 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:14,876 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:45:14,876 [ERROR]   Failed fetching works: 'NoneType' object has no attribute 'endswith'
+2026-04-29 14:53:48,331 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 14:53:48,331 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 14:53:48,331 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 14:53:48,331 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 14:53:48,331 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 14:53:48,331 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 14:53:48,332 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 14:53:48,333 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 14:53:48,334 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 14:53:48,335 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 15:01:23,158 [INFO] Total works retrieved: 9,796
+2026-04-29 15:01:23,158 [INFO] Total works retrieved: 9,796
+2026-04-29 15:29:55,038 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 15:29:55,038 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 15:29:55,039 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 15:29:55,040 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 15:29:55,041 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 15:29:55,041 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 15:29:55,041 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 15:29:55,041 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 15:29:55,042 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 15:29:55,043 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 15:29:55,044 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 15:37:21,878 [INFO] Total works retrieved: 9,796
+2026-04-29 15:37:21,878 [INFO] Total works retrieved: 9,796
+2026-04-29 16:18:59,060 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 16:18:59,060 [WARNING] Row 11 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 12 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 13 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 14 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 15 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 16 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 17 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 18 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 19 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 20 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 21 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 22 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 23 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 24 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 25 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 26 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 27 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 31 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 81 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 90 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 16:18:59,061 [WARNING] Row 100 has no openalex_id — skipping.
+2026-04-29 16:23:12,258 [INFO] Total works retrieved: 2,449
+2026-04-29 16:23:12,258 [INFO] Total works retrieved: 2,449
