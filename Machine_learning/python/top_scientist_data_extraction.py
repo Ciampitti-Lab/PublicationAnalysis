@@ -94,8 +94,8 @@ pandas.DataFrame
     - ORCID_match_status
 """
 orcid_list = [
-    (0, "0000-0002-9016-2972", True),
-    (1, "0000-0002-9863-8461", True),
+    (0, "0000-0002-9016-2972", 'A5049890100'),
+    (1, "0000-0002-9863-8461", 'A5062508940'),
     (2, "0000-0002-3784-1124", True),
     (3, "0000-0002-4701-2936", True),
     (4, "0000-0002-1482-4209", True),
@@ -203,10 +203,11 @@ orcid_list = [
 0: No se pudo identificar el autor, sin ORCID, sin perfil en OpenAlex, o perfil no vinculado a ORCID
 1: Se identifico el ID de OpenAlex por medio del ORCID
 2: Se identifico el ID de OpenAlex del autor
+21: Se identifico el ID de OpenAlex por medio del ORCID, pero existían múltiples matches. Se filtró por works_count>1 y se encontró un match fuerte.
 22: Multiples ID's obtenidos, revisar caso manualmente
+021: Se identifico el ID de OpenAlex por medio del ORCID, pero existían múltiples matches. Ninguno tenía más de 1 paper, revisar caso manualmente.
 01: No se pudo encontrar ID de OpenAlex por medio del ORCID. Posiblemente el autor no tiene perfil de OpenAlex, o no esta vinculado a su ORCID
 """
-print(len(data), len(orcid_list))
 if len(data) != len(orcid_list):
     raise ValueError("Length of ORCID list must match number of rows in df.")
 
@@ -214,58 +215,128 @@ headers = {"User-Agent": f"mailto:{'ramir713@purdue.edu'}"}
 
 openalex_ids = []
 match_flags = []
+multiple_matches_log = []  # Para registrar casos de múltiples matches
 
-for oidx, orcid, rest in orcid_list:
-    # Missing ORCID
-    if str(orcid).strip() == "" and not rest:
-        openalex_ids.append(None)
-        match_flags.append("0")
+for idx, orcid, rest in orcid_list:
+
+    # Clean values
+    orcid = str(orcid).strip()
+    
+    # --------------------------------------------------
+    # CASE 1: Already has OpenAlex ID
+    # --------------------------------------------------
+    if isinstance(rest, str) and rest.strip():
+        # print(f"row{idx} ya tiene OpenAlex ID")
+        if idx==1 or idx==0:
+            print('hola')
+        openalex_ids.append(rest.strip())
+        match_flags.append("2")   # Existing OpenAlex
         continue
-    elif rest:
-        openalex_ids.append(rest)
-        match_flags.append("2")
-        continue
-    try:
-        # Query OpenAlex
-        url = f"https://api.openalex.org/authors?filter=orcid:https://orcid.org/{orcid}"
-        response = requests.get(url, headers=headers, timeout=15)
 
-        # API error
-        if response.status_code != 200:
-            openalex_ids.append(None)
-            match_flags.append(f"API_ERROR_{response.status_code}")
-            time.sleep(0.5)
-            continue
-
-        results = response.json().get("results", [])
-
-        # No OpenAlex match
-        if len(results) == 0:
-            openalex_ids.append(None)
-            match_flags.append("01")
-
-        # Multiple matches (rare but useful warning)
-        elif len(results) > 1:
-            openalex_ids.append(results[0]["id"])
-            match_flags.append("22")
-
-        # Exact match
-        else:
-            openalex_ids.append(results[0]["id"])
-            match_flags.append("1")
-
-    except Exception as e:
+    # --------------------------------------------------
+    # CASE 2: No ORCID and no OpenAlex
+    # --------------------------------------------------
+    if not orcid and rest is False:
+        # print(f"row{idx} no tiene ORCID ni OpenAlex")
         openalex_ids.append(None)
-        match_flags.append(f"ERROR: {str(e)}")
+        match_flags.append("0")   # Missing all
+        continue
 
-    time.sleep(0.5)
+    # --------------------------------------------------
+    # CASE 3: ORCID available → Query OpenAlex
+    # --------------------------------------------------
+    if orcid:
+        try:
+            url = f"https://api.openalex.org/authors?filter=orcid:https://orcid.org/{orcid}"
+            response = requests.get(url, headers=headers, timeout=15)
+
+            # API error
+            if response.status_code != 200:
+                # print(f"row{idx} API error {response.status_code}")
+                openalex_ids.append(None)
+                match_flags.append(f"API_ERROR_{response.status_code}")
+                time.sleep(0.5)
+                continue
+
+            results = response.json().get("results", [])
+
+            # No match
+            if not results:
+                # print(f"row{idx} no se encontró en OpenAlex con ORCID {orcid}")
+                openalex_ids.append(None)
+                match_flags.append("01")
+
+            # Multiple matches
+            elif len(results) > 1:
+                # Filter only authors with more than 1 work
+                valid_results = [author for author in results if author.get("works_count", 0) > 1]
+
+                # No strong candidates
+                if len(valid_results) == 0:
+                    # print(f"row{idx} múltiples matches pero ninguno con más de 1 paper")
+                    openalex_ids.append(None)
+                    match_flags.append("021")  
+                    # Multiple matches, but all weak profiles
+
+                # Exactly one strong candidate
+                elif len(valid_results) == 1:
+                    selected_author = valid_results[0]
+                    # print(
+                    #     f"row{idx} match filtrado por works_count>1: "
+                    #     f'{selected_author["id"]} ({selected_author["works_count"]} papers)'
+                    # )
+                    openalex_ids.append(selected_author["id"])
+                    match_flags.append("21")  
+                    # Resolved multiple match after filtering
+
+                # Still ambiguous
+                else:
+                    print(
+                        f"row{idx} múltiples matches con más de 1 paper: "
+                        f'{[(a["id"], a["works_count"]) for a in valid_results]}'
+                    )
+                    openalex_ids.append(valid_results[0]["id"])  
+                    # Keep first but flag ambiguity
+                    match_flags.append("22")
+
+            # Exact match
+            else:
+                openalex_id = results[0]["id"]
+                # print(f"row{idx} match encontrado: {openalex_id}")
+                openalex_ids.append(openalex_id)
+                match_flags.append("1")
+
+        except Exception as e:
+            # print(f"row{idx} ERROR: {e}")
+            openalex_ids.append(None)
+            match_flags.append(f"ERROR: {str(e)}")
+
+        time.sleep(0.5)
+        continue
+
+    # --------------------------------------------------
+    # CASE 4: Catch unexpected formats
+    # --------------------------------------------------
+    print(f"row{idx} formato inesperado")
+    openalex_ids.append(None)
+    match_flags.append("UNKNOWN")
 
 
 data["OP_id"] = openalex_ids
 data["ORCID_match_status"] = match_flags
 print("Busqueda finalizada. Resultados de las primeras 20 filas:")
 print(data[["OP_id", "ORCID_match_status"]].head(20))
+print("Resumen de estados de match:")
+print(data["ORCID_match_status"].value_counts())
+resolved=data[data["ORCID_match_status"].isin(["1", "2", "21"])]
+print(f"Total autores con ID de OpenAlex identificado: {len(resolved)}")
+unresolved=data[data["ORCID_match_status"].isin(["0", "01", "021","22"])]
+print(f"Total autores sin ID de OpenAlex identificado: {len(unresolved)}")
 
+for idx, orcid, matches in multiple_matches_log:
+    print(f"Fila {idx} con ORCID {orcid} tiene múltiples matches en OpenAlex:")
+    for match in matches:
+        print(f"  - ID: {match['id']}, Name: {match['display_name']}")
 data.to_csv(
     "/home/ramir713/PublicationAnalysis/data/machine_learning_data/top100_agronomy_scientists.csv",
     index=False,

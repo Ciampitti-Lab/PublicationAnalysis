@@ -57,6 +57,9 @@ REQUEST_DELAY = 0.12
 # Max retries on transient HTTP errors
 MAX_RETRIES = 5
 
+# Minimize console output. Set to False for detailed progress logs.
+QUIET_MODE = True
+
 # =============================================================================
 # OPENALEX API FIELD REFERENCE
 # All fields available in each entity type, documented for analysis reference.
@@ -68,27 +71,16 @@ WORK_FIELDS = {
     # ── Identifiers ──────────────────────────────────────────────────────────
     "id": "OpenAlex URL ID  (https://openalex.org/W…)",
     "doi": "DOI — canonical external ID for works",
-    "ids.mag": "Microsoft Academic Graph ID",
-    "ids.pmid": "PubMed ID",
-    "ids.pmcid": "PubMed Central ID",
-    "doi_registration_agency": "Who registered the DOI (e.g. Crossref, DataCite)",
     # ── Publication metadata ─────────────────────────────────────────────────
     "title": "Full title of the work",
-    "display_name": "Same as title (present on all OpenAlex entity types)",
     "publication_year": "Integer publication year",
     "publication_date": "ISO 8601 full publication date",
     "type": "Normalised type: article | book | book-chapter | dataset | dissertation | editorial | erratum | grant | letter | other | paratext | peer-review | posted-content | preprint | proceedings | proceedings-article | reference-entry | report | retraction | review | standard | supplementary-materials",
-    "type_crossref": "Raw type string from Crossref (less normalised)",
-    "language": "ISO 639-1 language code (auto-detected)",
-    "indexed_in": "[LIST] Indexes: crossref | doaj | pubmed | pubmed_central",
     # ── Citation metrics ─────────────────────────────────────────────────────
     "cited_by_count": "Total citations received",
     "cited_by_api_url": "API URL to retrieve the list of citing works",
-    "counts_by_year": "[LIST] [{year, cited_by_count}] for last 10 years",
     "fwci": "Field-Weighted Citation Impact (received / expected)",
     "citation_normalized_percentile.value": "FWCI expressed as a percentile",
-    "citation_normalized_percentile.is_in_top_1_percent": "Boolean: top 1% by citations",
-    "citation_normalized_percentile.is_in_top_10_percent": "Boolean: top 10% by citations",
     # ── Authorship ───────────────────────────────────────────────────────────
     "authorships": "[LIST] [{author_position, author:{id,display_name,orcid}, institutions:[{id,display_name,ror,country_code,type}], countries:[], is_corresponding, raw_affiliation_strings, raw_author_name}]",
     "corresponding_author_ids": "[LIST] OpenAlex IDs of corresponding authors",
@@ -100,20 +92,9 @@ WORK_FIELDS = {
     "queried_author_id": "OpenAlex ID of the author this work was fetched for",
     "queried_author_position": "first | middle | last",
     "queried_author_is_corresponding": "Boolean: True when this author is the corresponding author",
-    "queried_author_raw_name": "Name string exactly as it appeared on the paper",
-    "queried_author_raw_affiliation": "[LIST] Raw affiliation strings for this author",
     # ── Open Access ──────────────────────────────────────────────────────────
     "is_oa": "Boolean shortcut for open_access.is_oa",
     "oa_status": "diamond | gold | hybrid | bronze | green | closed",
-    "oa_url": "Best available OA URL (PDF or landing page)",
-    "any_repository_has_fulltext": "Boolean: at least one repository copy exists",
-    # ── Locations ────────────────────────────────────────────────────────────
-    "locations_count": "Number of locations (publisher + repositories)",
-    "primary_location.is_oa": "Boolean: primary location is OA",
-    "primary_location.version": "publishedVersion | acceptedVersion | submittedVersion",
-    "primary_location.license": "Creative Commons or publisher license string",
-    "primary_location.landing_page_url": "Landing page URL of the version of record",
-    "primary_location.pdf_url": "Direct PDF URL at the primary location",
     # ── Source (journal / venue) ─────────────────────────────────────────────
     "source_id": "OpenAlex ID of the publishing venue",
     "source_display_name": "Name of the journal / venue",
@@ -121,54 +102,28 @@ WORK_FIELDS = {
     "source_issn": "[LIST] All ISSNs of the venue",
     "source_type": "journal | conference | repository | ebook-platform | book-series | metadata",
     "source_is_oa": "Boolean: venue is fully open access",
-    "source_is_in_doaj": "Boolean: venue indexed in DOAJ",
-    "source_is_core": "Boolean: venue indexed in CORE",
     "source_host_org_name": "Publisher name",
     # ── APC ──────────────────────────────────────────────────────────────────
     "apc_list_value_usd": "Article processing charge list price in USD",
     "apc_paid_value_usd": "APC actually paid in USD (when available)",
-    # ── Full text ────────────────────────────────────────────────────────────
-    "has_fulltext": "Boolean: fulltext n-grams are available",
-    "fulltext_origin": "pdf | ngrams",
     # ── Topics / concepts ────────────────────────────────────────────────────
     "primary_topic_id": "OpenAlex ID of the primary topic",
     "primary_topic_name": "Display name of the primary topic",
-    "primary_topic_score": "Similarity score for the primary topic",
     "primary_subfield_id": "OpenAlex ID of the subfield",
     "primary_subfield_name": "Display name of the subfield",
     "primary_field_id": "OpenAlex ID of the field",
     "primary_field_name": "Display name of the field",
-    "primary_domain_id": "OpenAlex ID of the domain",
-    "primary_domain_name": "Display name of the domain",
-    "all_topics": "[LIST] All topics with scores, subfield, field, domain",
-    "keywords": "[LIST] [{id, display_name, score}]",
     "sustainable_development_goals": "[LIST] UN SDGs with scores",
-    # ── Funding ──────────────────────────────────────────────────────────────
-    "funders": "[LIST] [{id, display_name, doi, country_code, ror, awards:[…]}]",
     # ── References / related ─────────────────────────────────────────────────
-    "referenced_works_count": "Number of works cited by this work",
-    "referenced_works": "[LIST] OpenAlex IDs of works cited by this work",
-    "related_works": "[LIST] OpenAlex IDs of algorithmically related works",
-    # ── MeSH ─────────────────────────────────────────────────────────────────
-    "mesh": "[LIST] MeSH terms if indexed in PubMed [{descriptor_ui, descriptor_name, qualifier_ui, qualifier_name, is_major_topic}]",
-    # ── Abstract ─────────────────────────────────────────────────────────────
-    "abstract": "Plain-text abstract reconstructed from inverted index",
-    # ── Provenance ───────────────────────────────────────────────────────────
-    "created_date": "ISO 8601 date this Work was added to OpenAlex",
-    "updated_date": "ISO 8601 datetime of last update in OpenAlex",
+    "referenced_works_count": "Number of works cited by this work", 
 }
 
 AUTHOR_FIELDS = {
     # ── Identifiers ──────────────────────────────────────────────────────────
     "id": "OpenAlex URL ID (https://openalex.org/A…)",
     "orcid": "ORCID URL — canonical external ID for authors",
-    "ids.mag": "Microsoft Academic Graph ID",
-    "ids.scopus": "Scopus author ID",
-    "ids.twitter": "Twitter handle",
-    "ids.wikipedia": "Wikipedia page URL",
     # ── Names ────────────────────────────────────────────────────────────────
     "display_name": "Author's canonical name in OpenAlex",
-    "display_name_alternatives": "[LIST] Other name forms found in the literature",
     # ── Metrics ──────────────────────────────────────────────────────────────
     "works_count": "Total works attributed to this author",
     "cited_by_count": "Total citations across all this author's works",
@@ -180,23 +135,11 @@ AUTHOR_FIELDS = {
     "summary_stats.2yr_i10_index": "i10-index over the last 2 years",
     "summary_stats.2yr_works_count": "Works published in the last 2 years",
     "summary_stats.2yr_cited_by_count": "Citations received in the last 2 years",
-    "counts_by_year": "[LIST] [{year, works_count, cited_by_count}] last 10 years",
-    # ── Affiliations ─────────────────────────────────────────────────────────
-    "last_known_institution_id": "OpenAlex ID of most recent institution",
-    "last_known_institution_name": "Name of most recent institution",
-    "last_known_institution_ror": "ROR of most recent institution",
-    "last_known_institution_country": "Country code of most recent institution",
-    "all_last_known_institutions": "[LIST] All current institutions (some have multiple)",
-    "affiliations_history": "[LIST] [{institution:{…}, years:[]}] full affiliation history",
     # ── Topics ───────────────────────────────────────────────────────────────
     "top_topic_id": "OpenAlex ID of author's primary topic",
     "top_topic_name": "Name of author's primary topic",
-    "all_topics": "[LIST] All topics with counts, subfield, field, domain",
     # ── URLs ─────────────────────────────────────────────────────────────────
     "works_api_url": "API URL to retrieve all works by this author",
-    # ── Provenance ───────────────────────────────────────────────────────────
-    "created_date": "ISO 8601 date this Author was added to OpenAlex",
-    "updated_date": "ISO 8601 datetime of last update in OpenAlex",
 }
 
 SOURCE_FIELDS = {
@@ -204,27 +147,18 @@ SOURCE_FIELDS = {
     "id": "OpenAlex URL ID (https://openalex.org/S…)",
     "issn_l": "ISSN-L — canonical external ID for sources",
     "issn": "[LIST] All ISSNs for this source",
-    "ids.mag": "Microsoft Academic Graph ID",
-    "ids.wikidata": "Wikidata ID",
-    "ids.fatcat": "Fatcat ID",
     # ── Names ────────────────────────────────────────────────────────────────
     "display_name": "Journal or venue name",
     "abbreviated_title": "Abbreviated title from the ISSN Centre",
-    "alternate_titles": "[LIST] Other known titles / abbreviations",
     # ── Publisher & host ─────────────────────────────────────────────────────
     "host_organization": "OpenAlex ID of host (Publisher or Institution)",
     "host_organization_name": "Name of the host organisation",
-    "host_organization_lineage_names": "[LIST] Publisher hierarchy (parent names)",
-    "societies": "[LIST] [{url, organization}] associated societies",
     # ── Type & access ────────────────────────────────────────────────────────
     "type": "journal | conference | repository | ebook-platform | book-series | metadata",
     "is_oa": "Boolean: fully open access source",
     "is_in_doaj": "Boolean: indexed in DOAJ",
     "is_core": "Boolean: indexed in CORE",
     "is_indexed_in_scopus": "Boolean: indexed in Scopus",
-    # ── APC ──────────────────────────────────────────────────────────────────
-    "apc_prices": "[LIST] [{price, currency}] from DOAJ",
-    "apc_usd": "APC converted to USD",
     # ── Metrics ──────────────────────────────────────────────────────────────
     "works_count": "Total works hosted by this source",
     "cited_by_count": "Total citations to all works in this source",
@@ -236,12 +170,6 @@ SOURCE_FIELDS = {
     "counts_by_year": "[LIST] [{year, works_count, cited_by_count}]",
     # ── Topics ───────────────────────────────────────────────────────────────
     "topics": "[LIST] Most common topics in this source",
-    # ── URLs ─────────────────────────────────────────────────────────────────
-    "homepage_url": "Source's main website",
-    "works_api_url": "API URL to retrieve all works in this source",
-    # ── Provenance ───────────────────────────────────────────────────────────
-    "created_date": "ISO 8601 date this Source was added to OpenAlex",
-    "updated_date": "ISO 8601 datetime of last update in OpenAlex",
 }
 
 
@@ -251,6 +179,23 @@ SOURCE_FIELDS = {
 
 BASE_URL = "https://api.openalex.org"
 HEADERS = {"User-Agent": f"AgricultureCitationAnalysis/1.0 (mailto:{CONTACT_EMAIL})"}
+
+
+def _log_progress(message: str) -> None:
+    if not QUIET_MODE:
+        logging.info(message)
+
+
+def _normalize_openalex_id(value: str) -> str:
+    if value is None:
+        return ""
+    text = str(value).strip()
+    if not text:
+        return ""
+    text = text.rstrip("/")
+    if "/" in text:
+        text = text.split("/")[-1]
+    return text.upper()
 
 
 def _get(url: str, params: dict = None) -> dict:
@@ -302,29 +247,46 @@ def load_authors(csv_path: Path) -> list[dict]:
     with open(csv_path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            oa_id = row.get("openalex_id", "").strip()
+            oa_id_raw = (
+                row.get("openalex_id")
+                or row.get("OP_id")
+                or row.get("openalex_url")
+                or ""
+            )
+            oa_id = _normalize_openalex_id(oa_id_raw)
             if not oa_id:
-                logging.warning(
-                    f"Row {row.get('position')} has no openalex_id — skipping."
-                )
+                row_id = row.get("rank_in_subfield") or row.get("position") or ""
+                logging.warning(f"Row {row_id} has no openalex_id — skipping.")
                 continue
             authors.append(
                 {
-                    "position": row.get("position", "").strip(),
-                    "name": row.get("author", "").strip(),
-                    "institution": row.get("institution", "").strip(),
-                    "country": row.get("country", "").strip(),
-                    "rank": row.get("rank", "").strip(),
-                    "main_field": row.get("main_field", "").strip(),
-                    "subfield": row.get("subfield_1", "").strip(),
-                    "selection_reason": row.get("selection_reason", "").strip(),
+                    "position": str(
+                        row.get("position") or row.get("rank_in_subfield") or ""
+                    ).strip(),
+                    "name": str(row.get("author") or row.get("authfull") or "").strip(),
+                    "institution": str(
+                        row.get("institution") or row.get("inst_name") or ""
+                    ).strip(),
+                    "country": str(row.get("country") or "").strip(),
+                    "rank": str(row.get("rank") or row.get("rank_in_subfield") or "").strip(),
+                    "main_field": str(row.get("main_field") or "").strip(),
+                    "subfield": str(row.get("subfield_1") or row.get("subfield") or "").strip(),
+                    "selection_reason": str(row.get("selection_reason") or "").strip(),
                     "openalex_id": oa_id,
-                    "openalex_url": row.get("openalex_url", "").strip(),
-                    "match_status": row.get("openalex_match_status", "").strip(),
-                    "match_score": row.get("openalex_match_score", "").strip(),
+                    "openalex_url": str(
+                        row.get("openalex_url")
+                        or row.get("OP_id")
+                        or f"https://openalex.org/{oa_id}"
+                    ).strip(),
+                    "match_status": str(
+                        row.get("openalex_match_status")
+                        or row.get("ORCID_match_status")
+                        or ""
+                    ).strip(),
+                    "match_score": str(row.get("openalex_match_score") or "").strip(),
                 }
             )
-    logging.info(f"Loaded {len(authors)} authors from {csv_path}")
+    _log_progress(f"Loaded {len(authors)} authors from {csv_path}")
     return authors
 
 
@@ -361,6 +323,7 @@ def flatten_author(raw: dict, csv_meta: dict) -> dict:
         "csv_match_score": csv_meta["match_score"],
         # ── OpenAlex identifiers ─────────────────────────────────────────────
         "openalex_id": raw.get("id", "").split("/")[-1],
+        "queried_author_id": raw.get("id", "").split("/")[-1],
         "openalex_url": raw.get("id", ""),
         "orcid": raw.get("orcid", ""),
         "id_mag": ids.get("mag", ""),
@@ -424,8 +387,11 @@ def fetch_corresponding_works(oa_id: str, year_start: int, year_end: int) -> lis
       authorships.is_corresponding:true → only corresponding-author papers
       publication_year            → within the time window
     """
+    normalized_id = _normalize_openalex_id(oa_id)
+    if not normalized_id:
+        return []
     filter_str = (
-        f"authorships.author.id:{oa_id},"
+        f"authorships.author.id:{normalized_id},"
         f"authorships.is_corresponding:true,"
         f"publication_year:{year_start}-{year_end}"
     )
@@ -447,7 +413,7 @@ def fetch_corresponding_works(oa_id: str, year_start: int, year_end: int) -> lis
         meta = data.get("meta", {})
         cursor = meta.get("next_cursor")
         total = meta.get("count", 0)
-        logging.info(
+        _log_progress(
             f"    Page {page_num}: {len(results)} works "
             f"({len(all_works)}/{total} total)"
         )
@@ -478,38 +444,31 @@ def flatten_work(raw: dict, queried_author_id: str) -> dict:
 
     # Find focal author's authorship entry (guard against None author objects)
     target_auth = {}
+    target_id = _normalize_openalex_id(queried_author_id)
     for a in raw.get("authorships") or []:
-        author_obj = a.get("author")
-        if author_obj is None:
-            continue
-        if author_obj.get("id", "").endswith(queried_author_id):
+        author_obj = a.get("author") or {}
+        author_id = _normalize_openalex_id(author_obj.get("id"))
+        if author_id and author_id == target_id:
             target_auth = a
             break
+
+    # Normalize corresponding flag for strict downstream filtering
+    queried_is_corresponding = bool(target_auth.get("is_corresponding"))
 
     return {
         # ── Identifiers ──────────────────────────────────────────────────────
         "openalex_id": raw.get("id", "").split("/")[-1],
         "openalex_url": raw.get("id", ""),
         "doi": raw.get("doi", ""),
-        "doi_registration_agency": raw.get("doi_registration_agency", ""),
-        "id_mag": ids.get("mag", ""),
-        "id_pmid": ids.get("pmid", ""),
-        "id_pmcid": ids.get("pmcid", ""),
         # ── Publication metadata ─────────────────────────────────────────────
         "title": raw.get("title", ""),
         "publication_year": raw.get("publication_year", ""),
         "publication_date": raw.get("publication_date", ""),
         "type": raw.get("type", ""),
-        "type_crossref": raw.get("type_crossref", ""),
-        "language": raw.get("language", ""),
-        "indexed_in": json.dumps(raw.get("indexed_in", [])),
         # ── Citation metrics ─────────────────────────────────────────────────
         "cited_by_count": raw.get("cited_by_count", ""),
         "fwci": raw.get("fwci", ""),
         "citation_percentile_value": cnp.get("value", ""),
-        "is_in_top_1_percent": cnp.get("is_in_top_1_percent", ""),
-        "is_in_top_10_percent": cnp.get("is_in_top_10_percent", ""),
-        "counts_by_year": json.dumps(raw.get("counts_by_year", [])),
         "cited_by_api_url": raw.get("cited_by_api_url", ""),
         # ── Authorship summary ───────────────────────────────────────────────
         "authors_count": raw.get("authors_count", len(raw.get("authorships") or [])),
@@ -520,9 +479,9 @@ def flatten_work(raw: dict, queried_author_id: str) -> dict:
             raw.get("corresponding_institution_ids", [])
         ),
         # ── Focal author's authorship ────────────────────────────────────────
-        "queried_author_id": queried_author_id,
+        "queried_author_id": target_id,
         "queried_author_position": target_auth.get("author_position", ""),
-        "queried_author_is_corresponding": target_auth.get("is_corresponding", ""),
+        "queried_author_is_corresponding": queried_is_corresponding,
         "queried_author_raw_name": target_auth.get("raw_author_name", ""),
         "queried_author_raw_affiliation": json.dumps(
             target_auth.get("raw_affiliation_strings", [])
@@ -530,15 +489,6 @@ def flatten_work(raw: dict, queried_author_id: str) -> dict:
         # ── Open Access ──────────────────────────────────────────────────────
         "is_oa": oa.get("is_oa", ""),
         "oa_status": oa.get("oa_status", ""),
-        "oa_url": oa.get("oa_url", ""),
-        "any_repository_has_fulltext": oa.get("any_repository_has_fulltext", ""),
-        # ── Primary location ─────────────────────────────────────────────────
-        "locations_count": raw.get("locations_count", ""),
-        "primary_location_is_oa": pl.get("is_oa", ""),
-        "primary_location_version": pl.get("version", ""),
-        "primary_location_license": pl.get("license", ""),
-        "primary_location_landing_url": pl.get("landing_page_url", ""),
-        "primary_location_pdf_url": pl.get("pdf_url", ""),
         # ── Source (journal) ─────────────────────────────────────────────────
         "source_id": src.get("id", "").split("/")[-1] if src.get("id") else "",
         "source_display_name": src.get("display_name", ""),
@@ -546,15 +496,10 @@ def flatten_work(raw: dict, queried_author_id: str) -> dict:
         "source_issn": json.dumps(src.get("issn", [])),
         "source_type": src.get("type", ""),
         "source_is_oa": src.get("is_oa", ""),
-        "source_is_in_doaj": src.get("is_in_doaj", ""),
-        "source_is_core": src.get("is_core", ""),
         "source_host_org_name": src.get("host_organization_name", ""),
         # ── APC ──────────────────────────────────────────────────────────────
         "apc_list_value_usd": (raw.get("apc_list") or {}).get("value_usd", ""),
         "apc_paid_value_usd": (raw.get("apc_paid") or {}).get("value_usd", ""),
-        # ── Full text ────────────────────────────────────────────────────────
-        "has_fulltext": raw.get("has_fulltext", ""),
-        "fulltext_origin": raw.get("fulltext_origin", ""),
         # ── Topics ───────────────────────────────────────────────────────────
         "primary_topic_id": pt.get("id", "").split("/")[-1] if pt.get("id") else "",
         "primary_topic_name": pt.get("display_name", ""),
@@ -565,30 +510,15 @@ def flatten_work(raw: dict, queried_author_id: str) -> dict:
         "primary_subfield_name": pt_sf.get("display_name", ""),
         "primary_field_id": pt_f.get("id", "").split("/")[-1] if pt_f.get("id") else "",
         "primary_field_name": pt_f.get("display_name", ""),
-        "primary_domain_id": (
-            pt_d.get("id", "").split("/")[-1] if pt_d.get("id") else ""
-        ),
-        "primary_domain_name": pt_d.get("display_name", ""),
         "all_topics": json.dumps(raw.get("topics", [])),
         "keywords": json.dumps(raw.get("keywords", [])),
         "sustainable_development_goals": json.dumps(
             raw.get("sustainable_development_goals", [])
         ),
-        # ── Funding ──────────────────────────────────────────────────────────
-        "funders": json.dumps(raw.get("funders", [])),
-        # ── Full authorship list ─────────────────────────────────────────────
-        "all_authorships": json.dumps(raw.get("authorships", [])),
-        # ── MeSH ─────────────────────────────────────────────────────────────
-        "mesh": json.dumps(raw.get("mesh", [])),
         # ── References / related ─────────────────────────────────────────────
         "referenced_works_count": raw.get("referenced_works_count", ""),
         "referenced_works": json.dumps(raw.get("referenced_works", [])),
         "related_works": json.dumps(raw.get("related_works", [])),
-        # ── Abstract ─────────────────────────────────────────────────────────
-        "abstract": abstract,
-        # ── Provenance ───────────────────────────────────────────────────────
-        "created_date": raw.get("created_date", ""),
-        "updated_date": raw.get("updated_date", ""),
     }
 
 
@@ -659,7 +589,7 @@ def write_csv(path: Path, rows: list[dict]) -> None:
         writer = csv.DictWriter(f, fieldnames=rows[0].keys())
         writer.writeheader()
         writer.writerows(rows)
-    logging.info(f"  ✓ {len(rows):,} rows → {path.name}")
+    _log_progress(f"  ✓ {len(rows):,} rows → {path.name}")
 
 
 def write_field_reference(path: Path) -> None:
@@ -676,7 +606,7 @@ def write_field_reference(path: Path) -> None:
         writer = csv.DictWriter(f, fieldnames=["entity", "field", "description"])
         writer.writeheader()
         writer.writerows(rows)
-    logging.info(f"  ✓ {len(rows)} field definitions → {path.name}")
+    _log_progress(f"  ✓ {len(rows)} field definitions → {path.name}")
 
 
 # =============================================================================
@@ -709,23 +639,23 @@ def main():
     fh.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
     logging.getLogger().addHandler(fh)
 
-    logging.info("=" * 70)
-    logging.info("OpenAlex Agriculture & Agronomy — Data Collection")
-    logging.info(f"Time window   : {YEAR_START}–{YEAR_END}")
-    logging.info(f"Filter        : corresponding author only")
-    logging.info(f"Input CSV     : {INPUT_CSV}")
-    logging.info(f"Output dir    : {OUTPUT_DIR.resolve()}")
-    logging.info("=" * 70)
+    _log_progress("=" * 70)
+    _log_progress("OpenAlex Agriculture & Agronomy — Data Collection")
+    _log_progress(f"Time window   : {YEAR_START}–{YEAR_END}")
+    _log_progress("Filter        : corresponding author only")
+    _log_progress(f"Input CSV     : {INPUT_CSV}")
+    _log_progress(f"Output dir    : {OUTPUT_DIR.resolve()}")
+    _log_progress("=" * 70)
 
     # ── STEP 1: Load authors ──────────────────────────────────────────────────
-    logging.info("\n[STEP 1] Loading authors from CSV …")
+    _log_progress("\n[STEP 1] Loading authors from CSV …")
     authors = load_authors(INPUT_CSV)
 
     # ── STEP 2: Fetch author metadata ─────────────────────────────────────────
-    logging.info(f"\n[STEP 2] Fetching author metadata ({len(authors)} authors) …")
+    _log_progress(f"\n[STEP 2] Fetching author metadata ({len(authors)} authors) …")
     author_rows = []
     for a in authors:
-        logging.info(f"  [{a['position']:>2}] {a['name']} ({a['openalex_id']})")
+        _log_progress(f"  [{a['position']:>2}] {a['name']} ({a['openalex_id']})")
         try:
             raw = fetch_author_metadata(a["openalex_id"])
             author_rows.append(flatten_author(raw, a))
@@ -735,7 +665,7 @@ def main():
     write_csv(OUTPUT_DIR / "authors.csv", author_rows)
 
     # ── STEP 3: Fetch corresponding-author works ───────────────────────────────
-    logging.info(
+    _log_progress(
         f"\n[STEP 3] Fetching corresponding-author works "
         f"({YEAR_START}–{YEAR_END}) …"
     )
@@ -743,15 +673,17 @@ def main():
     all_source_ids = set()
 
     for a in authors:
-        logging.info(f"  [{a['position']:>2}] {a['name']} ({a['openalex_id']})")
+        _log_progress(f"  [{a['position']:>2}] {a['name']} ({a['openalex_id']})")
         try:
             raw_works = fetch_corresponding_works(
                 a["openalex_id"], YEAR_START, YEAR_END
             )
-            logging.info(f"    → {len(raw_works)} works retrieved")
+            _log_progress(f"    → {len(raw_works)} works retrieved")
 
             for raw_work in raw_works:
                 flat = flatten_work(raw_work, a["openalex_id"])
+                if not flat.get("queried_author_is_corresponding"):
+                    continue
                 all_work_rows.append(flat)
                 if flat.get("source_id"):
                     all_source_ids.add(flat["source_id"])
@@ -760,17 +692,17 @@ def main():
             logging.error(f"  Failed fetching works: {exc}")
 
     write_csv(OUTPUT_DIR / "works.csv", all_work_rows)
-    logging.info(f"  Total works : {len(all_work_rows):,}")
-    logging.info(f"  Unique sources found: {len(all_source_ids)}")
+    _log_progress(f"  Total works : {len(all_work_rows):,}")
+    _log_progress(f"  Unique sources found: {len(all_source_ids)}")
 
     # ── STEP 4: Fetch source metadata ─────────────────────────────────────────
-    logging.info(
+    _log_progress(
         f"\n[STEP 4] Fetching source/journal metadata "
         f"({len(all_source_ids)} unique sources) …"
     )
     source_rows = []
     for i, sid in enumerate(sorted(all_source_ids), 1):
-        logging.info(f"  [{i}/{len(all_source_ids)}] {sid}")
+        _log_progress(f"  [{i}/{len(all_source_ids)}] {sid}")
         try:
             raw_src = fetch_source_metadata(sid)
             source_rows.append(flatten_source(raw_src))
@@ -780,21 +712,24 @@ def main():
     write_csv(OUTPUT_DIR / "sources.csv", source_rows)
 
     # ── STEP 5: Write field reference ──────────────────────────────────────────
-    logging.info("\n[STEP 5] Writing field reference …")
+    _log_progress("\n[STEP 5] Writing field reference …")
     write_field_reference(OUTPUT_DIR / "field_reference.csv")
 
     # ── Summary ────────────────────────────────────────────────────────────────
-    logging.info("\n" + "=" * 70)
-    logging.info("COLLECTION COMPLETE")
-    logging.info(f"  authors.csv      : {len(author_rows)} rows")
-    logging.info(
-        f"  works.csv        : {len(all_work_rows):,} rows  "
-        f"(corresponding author, {YEAR_START}–{YEAR_END})"
-    )
-    logging.info(f"  sources.csv      : {len(source_rows)} rows")
-    logging.info(f"  field_reference  : documented")
-    logging.info(f"  collection.log   : full run log")
-    logging.info("=" * 70)
+    if QUIET_MODE:
+        logging.info(f"Total works retrieved: {len(all_work_rows):,}")
+    else:
+        logging.info("\n" + "=" * 70)
+        logging.info("COLLECTION COMPLETE")
+        logging.info(f"  authors.csv      : {len(author_rows)} rows")
+        logging.info(
+            f"  works.csv        : {len(all_work_rows):,} rows  "
+            f"(corresponding author, {YEAR_START}–{YEAR_END})"
+        )
+        logging.info(f"  sources.csv      : {len(source_rows)} rows")
+        logging.info(f"  field_reference  : documented")
+        logging.info(f"  collection.log   : full run log")
+        logging.info("=" * 70)
 
 
 if __name__ == "__main__":
