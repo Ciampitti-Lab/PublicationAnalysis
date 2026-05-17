@@ -11,7 +11,6 @@ Output : openalex_output/
 
 FILTERS APPLIED TO WORKS
 -------------------------
-  • Author is the CORRESPONDING author
   • Publication year within [YEAR_START, YEAR_END]
 
 Change the time window by editing the two constants below.
@@ -35,7 +34,7 @@ import requests
 
 # Path to the input CSV (adjust if running from a different directory)
 INPUT_CSV = Path(
-    "/home/ramir713/PublicationAnalysis/data/machine_learning_data/top100_agronomy_scientists.csv"
+    "/home/ramir713/repos/PublicationAnalysis/data/machine_learning_data/top100_agronomy_scientists.csv"
 )
 
 # ── TIME WINDOW ──────────────────────────────────────────────────────────────
@@ -45,7 +44,7 @@ YEAR_END = 2023  # inclusive
 
 # Output folder
 OUTPUT_DIR = Path(
-    "/home/ramir713/PublicationAnalysis/data/machine_learning_data/openalex_output"
+    "/home/ramir713/repos/PublicationAnalysis/data/machine_learning_data/openalex_output"
 )
 
 # Your email → puts you in OpenAlex's "polite pool" (faster, ~10 req/s)
@@ -379,12 +378,11 @@ def flatten_author(raw: dict, csv_meta: dict) -> dict:
 
 def fetch_corresponding_works(oa_id: str, year_start: int, year_end: int) -> list:
     """
-    Fetch all works where `oa_id` is a CORRESPONDING author, published between
-    year_start and year_end (inclusive), using cursor-based pagination.
+    Fetch all works where `oa_id` is an author, published between year_start
+    and year_end (inclusive), using cursor-based pagination.
 
     Filter breakdown:
       authorships.author.id      → restrict to this specific author
-      authorships.is_corresponding:true → only corresponding-author papers
       publication_year            → within the time window
     """
     normalized_id = _normalize_openalex_id(oa_id)
@@ -392,7 +390,6 @@ def fetch_corresponding_works(oa_id: str, year_start: int, year_end: int) -> lis
         return []
     filter_str = (
         f"authorships.author.id:{normalized_id},"
-        f"authorships.is_corresponding:true,"
         f"publication_year:{year_start}-{year_end}"
     )
 
@@ -642,7 +639,7 @@ def main():
     _log_progress("=" * 70)
     _log_progress("OpenAlex Agriculture & Agronomy — Data Collection")
     _log_progress(f"Time window   : {YEAR_START}–{YEAR_END}")
-    _log_progress("Filter        : corresponding author only")
+    _log_progress("Filter        : publication year only")
     _log_progress(f"Input CSV     : {INPUT_CSV}")
     _log_progress(f"Output dir    : {OUTPUT_DIR.resolve()}")
     _log_progress("=" * 70)
@@ -664,13 +661,15 @@ def main():
 
     write_csv(OUTPUT_DIR / "authors.csv", author_rows)
 
-    # ── STEP 3: Fetch corresponding-author works ───────────────────────────────
+    # ── STEP 3: Fetch works in time window ─────────────────────────────────────
     _log_progress(
-        f"\n[STEP 3] Fetching corresponding-author works "
+        f"\n[STEP 3] Fetching works "
         f"({YEAR_START}–{YEAR_END}) …"
     )
     all_work_rows = []
     all_source_ids = set()
+    total_raw_works = 0
+    total_corresponding_works = 0
 
     for a in authors:
         _log_progress(f"  [{a['position']:>2}] {a['name']} ({a['openalex_id']})")
@@ -679,19 +678,30 @@ def main():
                 a["openalex_id"], YEAR_START, YEAR_END
             )
             _log_progress(f"    → {len(raw_works)} works retrieved")
+            total_raw_works += len(raw_works)
+
+            corresponding_for_author = 0
 
             for raw_work in raw_works:
                 flat = flatten_work(raw_work, a["openalex_id"])
-                if not flat.get("queried_author_is_corresponding"):
-                    continue
+                if flat.get("queried_author_is_corresponding"):
+                    corresponding_for_author += 1
                 all_work_rows.append(flat)
                 if flat.get("source_id"):
                     all_source_ids.add(flat["source_id"])
+
+            total_corresponding_works += corresponding_for_author
+            logging.info(
+                f"    Corresponding flag: {corresponding_for_author} of {len(raw_works)}"
+            )
 
         except Exception as exc:
             logging.error(f"  Failed fetching works: {exc}")
 
     write_csv(OUTPUT_DIR / "works.csv", all_work_rows)
+    logging.info(
+        f"Overall corresponding flag: {total_corresponding_works:,} of {total_raw_works:,}"
+    )
     _log_progress(f"  Total works : {len(all_work_rows):,}")
     _log_progress(f"  Unique sources found: {len(all_source_ids)}")
 
@@ -714,7 +724,7 @@ def main():
     # ── STEP 5: Write field reference ──────────────────────────────────────────
     _log_progress("\n[STEP 5] Writing field reference …")
     write_field_reference(OUTPUT_DIR / "field_reference.csv")
-
+ 
     # ── Summary ────────────────────────────────────────────────────────────────
     if QUIET_MODE:
         logging.info(f"Total works retrieved: {len(all_work_rows):,}")
@@ -724,7 +734,7 @@ def main():
         logging.info(f"  authors.csv      : {len(author_rows)} rows")
         logging.info(
             f"  works.csv        : {len(all_work_rows):,} rows  "
-            f"(corresponding author, {YEAR_START}–{YEAR_END})"
+            f"({YEAR_START}–{YEAR_END})"
         )
         logging.info(f"  sources.csv      : {len(source_rows)} rows")
         logging.info(f"  field_reference  : documented")
