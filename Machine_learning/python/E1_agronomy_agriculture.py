@@ -34,11 +34,10 @@ OPENALEX_API_KEY = "Vuopm7PwTu5AE0KW6QrHpg"
 EMAIL          = "ramir713@purdue.edu"
 FIELD_ID       = "11"
 YEARS          = [2018, 2019, 2020, 2021, 2022, 2023]
-PER_PAGE       = 200
+PER_PAGE       = 100
 COMPUTE_HINDEX = False   # Keep False for a fast run
 
 YEAR_WORKERS   = 4
-HINDEX_WORKERS = 6
 MAX_RPS        = 8       # Hard ceiling shared across ALL threads
 
 OUTPUT_DIR   = "/home/ramir713/repos/PublicationAnalysis/data/machine_learning_data"
@@ -50,7 +49,8 @@ HEADERS  = {"User-Agent": f"mailto:{EMAIL}"}
 SELECT_FIELDS = ",".join([
     "id", "doi", "publication_year", "authorships",
     "countries_distinct_count", "institutions_distinct_count",
-    "primary_location", "apc_list", "primary_topic", "referenced_works_count",
+    "primary_location", "apc_list", "primary_topic", "referenced_works_count",'type'
+    
 ])
 
 # ── Logging ────────────────────────────────────────────────────────────────────
@@ -117,37 +117,6 @@ def api_get(endpoint: str, params: dict = None, retries: int = 3) -> dict:
     log.error(f"Giving up on {url}")
     return {}
 
-# ── H-index helper ─────────────────────────────────────────────────────────────
-
-_hindex_cache: dict[tuple, Optional[int]] = {}
-_hindex_lock  = threading.Lock()
-
-def hindex_at_year(author_id: str, before_year: int) -> Optional[int]:
-    key = (author_id, before_year)
-    with _hindex_lock:
-        if key in _hindex_cache:
-            return _hindex_cache[key]
-    citation_counts = []
-    cursor = "*"
-    while True:
-        data = api_get("works", params={
-            "filter":   f"authorships.author.id:{author_id},publication_year:<{before_year}",
-            "select":   "cited_by_count",
-            "per_page": 200,
-            "cursor":   cursor,
-        })
-        citation_counts.extend(r.get("cited_by_count", 0) for r in data.get("results", []))
-        cursor = data.get("meta", {}).get("next_cursor")
-        if not cursor:
-            break
-    h: Optional[int] = None
-    if citation_counts:
-        s = sorted(citation_counts, reverse=True)
-        h = sum(1 for rank, c in enumerate(s, start=1) if c >= rank)
-    with _hindex_lock:
-        _hindex_cache[key] = h
-    return h
-
 # ── Per-paper extraction ───────────────────────────────────────────────────────
 
 def extract_corresponding(authorships: list) -> tuple[list, list]:
@@ -164,29 +133,12 @@ def extract_corresponding(authorships: list) -> tuple[list, list]:
     return author_ids, inst_ids
 
 
-def resolve_hindices(corr_author_ids: list, pub_year: int) -> str:
-    if not corr_author_ids:
-        return ""
-    results: dict[str, str] = {}
-    with ThreadPoolExecutor(max_workers=HINDEX_WORKERS, thread_name_prefix="hindex") as pool:
-        future_to_aid = {pool.submit(hindex_at_year, aid, pub_year): aid for aid in corr_author_ids}
-        for future in as_completed(future_to_aid):
-            aid = future_to_aid[future]
-            try:
-                h = future.result()
-                results[aid] = "" if h is None else str(h)
-            except Exception as exc:
-                log.warning(f"h-index failed for {aid}: {exc}")
-                results[aid] = ""
-    return "|".join(results.get(aid, "") for aid in corr_author_ids)
 
 
 def flatten(work: dict) -> dict:
     pub_year    = work.get("publication_year")
     authorships = work.get("authorships") or []
     corr_author_ids, corr_inst_ids = extract_corresponding(authorships)
-    hindex_str = resolve_hindices(corr_author_ids, pub_year) \
-                 if (COMPUTE_HINDEX and pub_year) else ""
     primary_loc  = work.get("primary_location") or {}
     source       = primary_loc.get("source") or {}
     source_stats = source.get("summary_stats") or {}
@@ -198,13 +150,17 @@ def flatten(work: dict) -> dict:
         "author_count":                       len(authorships),
         "countries_distinct_count":           work.get("countries_distinct_count"),
         "institutions_distinct_count":        work.get("institutions_distinct_count"),
+        "type":                               work.get("type"),
         "corresponding_author_ids":           "|".join(corr_author_ids),
         "corresponding_institution_ids":      "|".join(corr_inst_ids),
-        "corresponding_author_hindex_at_pub": hindex_str,
         "source_id":                          source.get("id", "").replace("https://openalex.org/", ""),
         "source_display_name":                source.get("display_name"),
         "source_2yr_mean_citedness":          source_stats.get("2yr_mean_citedness"),
         "source_type":                        source.get("type"),
+        "source_is_core":                     source.get("is_core"),
+        "source_is_in_doaj":                  source.get("is_in_doaj"),
+        "source_issn":                        "|".join(source.get("issn") or []),
+        "source_has_issn":                     bool(source.get("issn") or []),   
         "apc_list_value_usd":                 apc.get("value_usd"),
         "primary_topic_id":                    topic.get("id", "").replace("https://openalex.org/", ""),
         "primary_topic_display_name":         topic.get("display_name"),
@@ -219,7 +175,7 @@ def fetch_year(year: int) -> tuple[pd.DataFrame, bool]:
     completed=False means a rate-limit stopped it early — partial data is still returned.
     """
     params = {
-        "filter":   f"primary_topic.field.id:{FIELD_ID},publication_year:{year},type:article",
+        "filter":   f"primary_topic.field.id:{FIELD_ID},publication_year:{year},primary_location.source.type:journal",
         "select":   SELECT_FIELDS,
         "per_page": PER_PAGE,
         "cursor":   "*",
