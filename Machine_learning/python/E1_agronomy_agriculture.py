@@ -37,7 +37,7 @@ YEARS          = [2018, 2019, 2020, 2021, 2022, 2023]
 PER_PAGE       = 100
 COMPUTE_HINDEX = False   # Keep False for a fast run
 
-YEAR_WORKERS   = 4
+YEAR_WORKERS   = 3
 MAX_RPS        = 8       # Hard ceiling shared across ALL threads
 
 OUTPUT_DIR   = "/home/ramir713/repos/PublicationAnalysis/data/machine_learning_data"
@@ -141,6 +141,7 @@ def flatten(work: dict) -> dict:
     corr_author_ids, corr_inst_ids = extract_corresponding(authorships)
     primary_loc  = work.get("primary_location") or {}
     source       = primary_loc.get("source") or {}
+    open_access = work.get("open_access") or {}
     source_stats = source.get("summary_stats") or {}
     apc          = work.get("apc_list") or {}
     topic        = work.get("primary_topic") or {}
@@ -155,14 +156,15 @@ def flatten(work: dict) -> dict:
         "corresponding_institution_ids":      "|".join(corr_inst_ids),
         "source_id":                          source.get("id", "").replace("https://openalex.org/", ""),
         "source_display_name":                source.get("display_name"),
-        "source_2yr_mean_citedness":          source_stats.get("2yr_mean_citedness"),
         "source_type":                        source.get("type"),
         "source_is_core":                     source.get("is_core"),
         "source_is_in_doaj":                  source.get("is_in_doaj"),
         "source_issn":                        "|".join(source.get("issn") or []),
         "source_has_issn":                     bool(source.get("issn") or []),   
         "apc_list_value_usd":                 apc.get("value_usd"),
-        "primary_topic_id":                    topic.get("id", "").replace("https://openalex.org/", ""),
+        "is_open_access":                     open_access.get("is_oa"),
+        "oa_status":                          open_access.get("oa_status"),
+        "primary_topic_id":                   topic.get("id", "").replace("https://openalex.org/", ""),
         "primary_topic_display_name":         topic.get("display_name"),
         "referenced_works_count":             work.get("referenced_works_count"),
     }
